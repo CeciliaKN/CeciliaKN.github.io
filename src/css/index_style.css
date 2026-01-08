@@ -10,14 +10,114 @@
     }
     header {
       display: flex;
-      justify-content: flex-end;
-      padding: 10px;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
       background-color: rgba(0, 0, 0, 0.45);
     }
     header a {
       margin: 0 10px;
       text-decoration: none;
       color: white;
+    }
+    
+    /* Header Layout */
+    .header-left {
+      flex: 1;
+    }
+    .header-center {
+      flex: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    
+    /* Language Switcher */
+    .language-switcher {
+      display: flex;
+      gap: 5px;
+    }
+    .lang-btn {
+      padding: 6px 12px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+    .lang-btn:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    .lang-btn.active {
+      background-color: rgba(255, 255, 255, 0.35);
+      border-color: rgba(255, 255, 255, 0.5);
+      font-weight: bold;
+    }
+    
+    /* Search Box */
+    .search-box {
+      padding: 8px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 20px;
+      background-color: rgba(255, 255, 255, 0.15);
+      color: white;
+      font-size: 14px;
+      width: 300px;
+      transition: all 0.3s ease;
+    }
+    .search-box::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .search-box:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    .search-btn {
+      padding: 8px 15px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      cursor: pointer;
+      border-radius: 20px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    .search-btn:hover {
+      background-color: rgba(255, 255, 255, 0.25);
+      transform: scale(1.1);
+    }
+    
+    /* Header Buttons */
+    .header-btn {
+      padding: 8px 16px;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .header-btn:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    .header-btn:active {
+      transform: translateY(0);
     }
     main {
       display: flex;
@@ -62,6 +162,46 @@
     footer a {
       color: white;
     }
+    
+    /* About Button */
+    .about-btn {
+      padding: 10px 30px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+    .about-btn:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+    .about-btn:active {
+      transform: scale(0.98);
+    }
+    
+    /* About Content */
+    .about-content {
+      max-width: 800px;
+      padding: 20px;
+    }
+    
+    /* Main Buttons Enhancement */
+    .main-btn {
+      transition: all 0.3s ease !important;
+    }
+    .main-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
+    }
+    .main-btn:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+    
     #content {
       display: none;
       padding: 10px;
