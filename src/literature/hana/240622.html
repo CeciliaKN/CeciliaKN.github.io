@@ -16,15 +16,29 @@
   </head>
   <body>
     <header>
-	<a onclick="window.open('/src/index/talk')">相谈</a>
-        <a onclick="window.open('/src/index/friends')">友人</a>
-        <a onclick="window.open('/src/index/mn')">赞助</a>
+        <div class="header-left">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="cn">CN</button>
+                <button class="lang-btn" data-lang="jp">JP</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="la">LA</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="window.open('/src/index/talk')">相谈</button>
+            <button class="header-btn" onclick="window.open('/src/index/friends')">友人</button>
+            <button class="header-btn" onclick="window.open('/src/index/mn')">赞助</button>
+        </div>
     </header>
     <main class="container-fluid">
 	
 <div class="blog-post-in">
   <button class="back-button" onclick="window.location.href = '/src/literature/ind' ">返回上一页</button>
-  <h3 class="blog-post-title-in"><a href="hana/240622himawari">梦园·向日葵</a></h3>
+  <h3 class="blog-post-title-in">梦园·向日葵</h3>
   <p class="blog-post-meta-in">公元2024年6月22日 分组：<a href="#">百合花开</a></p>
   <p class="blog-post-content-in">礼堂里四下无声。静寂的气氛如身着银盔的白骑士一般守护着这里，白骑士用望着将受洗礼的孩子们的眼神凝视着台阶下，创造了这片圣域。窗外的蝉鸣声被隔绝在外，听不分明；六月那似要焚烧一切的昼光和潮湿闷热的空气都没能渗入这圣域里分毫。
 「这里也算是个纳凉的好去处，」我想，「简直可以和石制的教堂里媲美。」那公教堂的钟声和弥撒声，只是想着，就又能让我整个人变得清爽下来。<br>
@@ -74,7 +88,7 @@
           data-reactions-enabled="1"
           data-emit-metadata="0"
           data-input-position="bottom"
-          data-theme="preferred_color_scheme"
+          data-theme="noborder_light"
           data-lang="zh-CN"
           crossorigin="anonymous"
           async>

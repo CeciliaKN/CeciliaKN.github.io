@@ -16,15 +16,29 @@
   </head>
   <body>
     <header>
-	<a onclick="window.open('/src/index/talk')">相谈</a>
-        <a onclick="window.open('/src/index/friends')">友人</a>
-        <a onclick="window.open('/src/index/mn')">赞助</a>
+        <div class="header-left">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="cn">CN</button>
+                <button class="lang-btn" data-lang="jp">JP</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="la">LA</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="window.open('/src/index/talk')">相谈</button>
+            <button class="header-btn" onclick="window.open('/src/index/friends')">友人</button>
+            <button class="header-btn" onclick="window.open('/src/index/mn')">赞助</button>
+        </div>
     </header>
     <main class="container-fluid">
 	
 <div class="blog-post-in">
   <button class="back-button" onclick="window.location.href = '/src/literature/ind' ">返回上一页</button>
-  <h3 class="blog-post-title-in"><a href="hana/240622himawari">梦园·龙舌兰</a></h3>
+  <h3 class="blog-post-title-in">梦园·龙舌兰</h3>
   <p class="blog-post-meta-in">公元2024年9月9日 分组：<a href="#">百合花开</a></p>
   <p class="blog-post-content-in">酒吧门口的摇铃声已沉寂许久。
 铃声之下，紧闭的深色实木门把世界分成了两半。在门的外侧，只有被墨西哥北部山脉阻隔、不得其所的太阳，奇瓦瓦干热的沙漠，和零星点缀着的深绿色植被。在沙漠的远方，那些平日里如骑士长剑般舒展的尖刺状绿叶上，数米高的花托挺立着，也点缀着蓝绿色的绒球一样的蕊。一条双向两车道的狭窄公路横亘其中，灰白的路面在阳光的暴晒下应和着。从这里向北方的天际线行进大约五公里，大概在另一处山脚下的谷地中央，是唤作查科的小镇。【注1】小镇人口仅仅数百，居民也都相互认识。每当夕阳沿着山谷边缘缓缓沉下时，镇子里的加西亚和玛丽亚们偶尔会结伴驱车沿着公路行进，然后来到这扇门前。
@@ -88,7 +102,7 @@ Vaquero，quero，quería。【注5】
 注2：名字来源是1980年成立于巴斯克的一个金属乐队。虽发源于西班牙，但它在拉丁美洲亦有许多听众。
 注3：伊莎贝拉的昵称(Bel)，亦有美人之意。
 注4：Vaquero，代指墨西哥北部的牧牛人。
-注5：quero，葡萄牙语的需要/querer的第一人称直陈现在时，在西班牙语里是quiero。quería是该词在西班牙语里的直陈过去未完成时，表示“我曾经需要某物”或言，“我曾经爱某人”，但现在不是。
+注5：quero，葡萄牙语的需要/querer的第一人称直陈现在时，在西班牙语里是quiero。quería是该词在西班牙语里的直陈过去未完成时，表示“我曾经需要某物”或言，“我曾经爱某人”，但现在不是。</p>
 </div>
 <hr/>
 </div>
@@ -107,7 +121,7 @@ Vaquero，quero，quería。【注5】
           data-reactions-enabled="1"
           data-emit-metadata="0"
           data-input-position="bottom"
-          data-theme="preferred_color_scheme"
+          data-theme="noborder_light"
           data-lang="zh-CN"
           crossorigin="anonymous"
           async>

@@ -467,7 +467,7 @@ main {
   padding: 10px 20px;
   font-size: 1em;
   color: #fff;
-  background-color: #99ffcd;
+  background-color: rgba(0, 0, 0, 0.45);
   border: none;
   border-radius: 5px;
   text-decoration: none;

@@ -54,15 +54,11 @@
       const searchMap = {
         // 幻想世界相关
         '幻想': '/src/fant/ind.html',
-        '幻想世界': '/src/fant/ind.html',
-        'fantastic': '/src/fant/ind.html',
         'fantasy': '/src/fant/ind.html',
         'baletu': '/src/fant/ind.html',
         
         // 语言相关
-        '语言': '/src/fant/langue.html',
-        'langue': '/src/fant/langue.html',
-        'language': '/src/fant/langue.html',
+        '人造语言': '/src/fant/langue.html',
         
         // 民族相关
         'saxona': '/src/fant/peoples/EP0001SaxonaNixi.html',
@@ -75,17 +71,17 @@
         // 文学相关
         '文学': '/src/literature/ind.html',
         'literature': '/src/literature/ind.html',
-        'lonicera': '/src/literature/hana/240607lonicera.html',
-        'himawari': '/src/literature/hana/240622himawari.html',
+        '花': '/src/literature/ind.html',
+        '向日葵': '/src/literature/hana/240622.html',
         
         // 现实世界
-        '现实': '/src/real/ind.html',
-        '现实世界': '/src/real/ind.html',
-        'real': '/src/real/ind.html',
+        '博客': '/src/real/ind.html',
+        'blog': '/src/real/ind.html',
+        '主页': '/src/real/ind.html',
         
         // Sarava
         'sarava': '/src/Sarava/word.html',
-        'word': '/src/Sarava/word.html'
+        '萨拉瓦': '/src/Sarava/word.html'
       };
       
       // 查找匹配
@@ -100,7 +96,7 @@
       if (foundUrl) {
         window.open(foundUrl, '_blank');
       } else {
-        alert('未找到匹配的页面。尝试搜索：幻想、文学、现实、语言等关键词');
+        alert('功能尚未完善。未找到相关内容: ' + searchTerm);
       }
     }
     

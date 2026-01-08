@@ -16,15 +16,29 @@
   </head>
   <body>
     <header>
-	<a onclick="window.open('/src/index/talk')">相谈</a>
-        <a onclick="window.open('/src/index/friends')">友人</a>
-        <a onclick="window.open('/src/index/mn')">赞助</a>
+        <div class="header-left">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="cn">CN</button>
+                <button class="lang-btn" data-lang="jp">JP</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="la">LA</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="window.open('/src/index/talk')">相谈</button>
+            <button class="header-btn" onclick="window.open('/src/index/friends')">友人</button>
+            <button class="header-btn" onclick="window.open('/src/index/mn')">赞助</button>
+        </div>
     </header>
     <main class="container-fluid">
 	
 <div class="blog-post-in">
   <button class="back-button" onclick="window.location.href = '/src/literature/ind' ">返回上一页</button>
-  <h3 class="blog-post-title-in"><a href="hana/240622himawari">梦园·金缕梅</a></h3>
+  <h3 class="blog-post-title-in">梦园·金缕梅</h3>
   <p class="blog-post-meta-in">帝国纪年1534年8月18日 分组：<a href="#">百合花开</a></p>
   <p class="blog-post-content-in">光明重新回到了这世上，而如今的你，还可以看见吗？<br>
 ——1491.5.6（1981.2.27），<a href="/src/fant/peoples/EP0001SaxonaNixi">锐儿</a> 
@@ -52,7 +66,7 @@
 
 备注<br>
 金缕梅，一称忍冬。<br>
-
+</p>
 </div>
 <hr/>
 </div>
@@ -71,7 +85,7 @@
           data-reactions-enabled="1"
           data-emit-metadata="0"
           data-input-position="bottom"
-          data-theme="preferred_color_scheme"
+          data-theme="noborder_light"
           data-lang="zh-CN"
           crossorigin="anonymous"
           async>
