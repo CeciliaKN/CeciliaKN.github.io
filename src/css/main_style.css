@@ -436,6 +436,7 @@ main {
    Giscus 评论区样式
    ========================================== */
 
+/* Literature页面评论区 */
 .comments-section {
   max-width: 1350px;
   width: calc(100% - 120px);
@@ -450,6 +451,23 @@ main {
   color: #a8d5ff;
   margin-bottom: 20px;
   font-size: 1.5em;
+}
+
+/* Real World页面评论区 - 在blog-container内部 */
+.comments-section-real {
+  max-width: 800px;
+  margin: 50px auto 30px auto;
+  padding: 30px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+.comments-section-real h3 {
+  color: #a8d5ff;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 /* Giscus 主题适配 */
@@ -504,4 +522,183 @@ hr {
   padding: 10px;
   transition: max-height 0.3s ease-out;
   overflow: hidden;
+}
+
+/* ==========================================
+   滚动条样式美化
+   ========================================== */
+
+/* Webkit浏览器（Chrome, Safari, Edge）滚动条 */
+.sidebar::-webkit-scrollbar,
+.blog-container::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.blog-container::-webkit-scrollbar-track {
+  background: rgba(128, 128, 128, 0.15); /* 灰色，高透明度 */
+  border-radius: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.blog-container::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.4); /* 灰色，中等透明度 */
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.blog-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.6); /* 悬停时稍微降低透明度 */
+}
+
+/* Firefox滚动条 */
+.sidebar,
+.blog-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(128, 128, 128, 0.4) rgba(128, 128, 128, 0.15);
+}
+
+/* ==========================================
+   响应式设计 - 移动端适配
+   ========================================== */
+
+/* 平板设备 - 侧边栏缩小 */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+  
+  .blog-container {
+    margin-left: 200px;
+  }
+  
+  .sidebar h3 {
+    font-size: 16px;
+  }
+  
+  .sidebar-section h4 {
+    font-size: 14px;
+  }
+  
+  .sidebar button,
+  .sidebar-section a {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+}
+
+/* 小屏幕 - 侧边栏进一步缩小 */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80px;
+    padding: 20px 10px;
+  }
+  
+  .blog-container {
+    margin-left: 80px;
+    padding: 20px;
+  }
+  
+  .sidebar h3 {
+    font-size: 12px;
+    writing-mode: vertical-rl; /* 竖排文字 */
+    text-orientation: upright;
+    margin: 0 auto 15px auto;
+  }
+  
+  .sidebar-section h4 {
+    font-size: 11px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    padding: 0;
+    border: none;
+    margin-bottom: 10px;
+  }
+  
+  .sidebar button {
+    font-size: 11px;
+    padding: 8px 5px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    height: auto;
+    min-height: 80px;
+  }
+  
+  .sidebar-section a {
+    font-size: 10px;
+    padding: 8px 5px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    height: auto;
+    min-height: 60px;
+  }
+  
+  .page-title h1 {
+    font-size: 24px;
+  }
+  
+  .blog-post {
+    padding: 20px;
+  }
+  
+  .comments-section-real {
+    padding: 20px;
+  }
+}
+
+/* 超小屏幕（手机） - 侧边栏完全收起为汉堡菜单图标样式 */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 50px;
+    padding: 15px 5px;
+  }
+  
+  .blog-container {
+    margin-left: 50px;
+    padding: 15px;
+  }
+  
+  /* 隐藏侧边栏文字，只显示缩略版 */
+  .sidebar-section h4,
+  .sidebar-section a {
+    display: none;
+  }
+  
+  .sidebar h3 {
+    font-size: 10px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+  
+  .sidebar button {
+    font-size: 10px;
+    padding: 6px 3px;
+    min-height: 60px;
+  }
+  
+  .page-title h1 {
+    font-size: 20px;
+  }
+  
+  .page-title p {
+    font-size: 12px;
+  }
+  
+  .blog-post h2 {
+    font-size: 18px;
+  }
+  
+  .blog-post {
+    padding: 15px;
+  }
+  
+  .comments-section-real {
+    padding: 15px;
+  }
+  
+  .comments-section-real h3 {
+    font-size: 1.2em;
+  }
 }
