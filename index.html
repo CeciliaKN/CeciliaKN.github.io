@@ -35,48 +35,50 @@
         </div>
     </header>
     <main class="container-fluid">
-	<div class="column">
-		<div class="col-md-12">
+	<div class="main-center">
+		<div class="welcome-section">
 			<h3 class="text-center">
 				Welcome to the Grand Library<br>
 				「欢迎造访大图书馆」
 			</h3>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12" style="max-width: 600px;">
-			<h3 class="text-center">
-				现实世界
+		<div class="world-entrance">
+			<h3 class="entrance-title">
+				现实世界<br>
 				-THE REAL WORLD-
 			</h3> 
-			<button type="submit" class="btn btn-success btn-lg main-btn" rgba(0, 0, 0, 0.2) onclick="window.open('/src/real/ind')">
+			<button type="submit" class="entrance-btn" onclick="window.open('/src/real/ind')">
 				叩门
 			</button>
 		</div>
 		<!-- 幻想世界已隐藏，可通过搜索或直接访问 /src/fant/ind 进入 -->
 	</div>
-	<div class="column">
-	    <button id="title" class="about-btn">「关于馆长」</button>
-                <div id="content" class="about-content" style="background-color: rgba(0, 0, 0, 0);transition: height 0.2s;">
+	
+	<!-- 关于馆长按钮 - 右下角 -->
+	<button id="aboutButton" class="about-btn-corner">「关于馆长」</button>
+	
+	<!-- 关于馆长模态框 -->
+	<div id="aboutModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<h2>关于馆长</h2>
+			<div class="about-info">
 				<dt>个人信息</dt>
-				<dd>ShioLilia（2001.10.22 - ），女<!--掌管着图书馆现实世界的部分-->。歌者、舞者、乐手，文学少女，贩卖原创力。
-				<!--</dd>
-				<dd>Soshoja 'Suja' Napitati (1611.1.1 - )，女，第98任执星者，掌管着图书馆幻想世界的部分。现居住在黄昏平原、图书馆实体化的所在。
-				</dd>-->
-				<dt>馆藏
-				</dt>
-				<dd>文学/语言学、科学、音乐等
-				</dd>
-				<!--<dt>世界观体系（幻想世界）
-				</dt>
-				<dd>语言体系、历史与政治、家族世系等
-				</dd> --></div>
-	</div></main>
-	  <footer>  		
-	      <address>
-		<strong>La Grand Bib. of Miana</strong><br> 1 Xomerexo Ave, Xomezo Dist.<br> Sigurasanio, Miana, State of Hordo<br> <abbr title="Phone">P:</abbr> <a onclick="window.open('https://space.bilibili.com/12511105')">(11) 23-317-870</a>
-	      </address>
-	 </footer>
+				<dd>ShioLilia（2001.10.22 - ），女。歌者、舞者、乐手，文学少女，贩卖原创力。</dd>
+				<dt>馆藏</dt>
+				<dd>文学/语言学、科学、音乐等</dd>
+				<hr style="margin: 20px 0; border-color: rgba(255, 255, 255, 0.3);">
+				<address>
+					<strong>La Grand Bib. of Miana</strong><br> 
+					1 Xomerexo Ave, Xomezo Dist.<br> 
+					Sigurasanio, Miana, State of Hordo<br> 
+					<abbr title="Phone">P:</abbr> <a href="https://space.bilibili.com/12511105" target="_blank" style="color: #8db4e2;">(11) 23-317-870</a>
+				</address>
+			</div>
+		</div>
+	</div>
+    </main>
+
 
     <script src="/src/js/jquery.min.js"></script>
     <script src="/src/js/bootstrap.min.js"></script>

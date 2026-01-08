@@ -12,14 +12,26 @@
 	<meta name="keywords" content="Four Seasons">
     <link href="/src/css/bootstrap.min.css" rel="stylesheet">
     <link href="/src/css/wiki.css" rel="stylesheet">
-
   </head>
 <body>
     <header>
-	<button class="back-button" onclick="window.history.go(-1)">返回上一页</button>	
-	<a onclick="window.open('/src/index/talk')">相谈</a>
-        <a onclick="window.open('/src/index/friends')">友人</a>
-        <a onclick="window.open('/src/index/mn')">赞助</a>
+        <div class="header-left">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="cn">CN</button>
+                <button class="lang-btn" data-lang="jp">JP</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="la">LA</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="window.open('/src/index/talk')">相谈</button>
+            <button class="header-btn" onclick="window.open('/src/index/friends')">友人</button>
+            <button class="header-btn" onclick="window.open('/src/index/mn')">赞助</button>
+        </div>
     </header>
  <main>
     <div class="toc">

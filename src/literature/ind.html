@@ -11,64 +11,90 @@
     <meta name="author" content="Hanabishi Tomoe">
 	<meta name="keywords" content="Four Seasons">
     <link href="/src/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/src/css/lit_style.css" rel="stylesheet">
-
+    <link href="/src/css/real_style.css" rel="stylesheet">
   </head>
   <body>
     <header>
-	<a onclick="window.open('/src/index/talk')">相谈</a>
-        <a onclick="window.open('/src/index/friends')">友人</a>
-        <a onclick="window.open('/src/index/mn')">赞助</a>
+        <div class="header-left">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="cn">CN</button>
+                <button class="lang-btn" data-lang="jp">JP</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="la">LA</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="window.open('/src/index/talk')">相谈</button>
+            <button class="header-btn" onclick="window.open('/src/index/friends')">友人</button>
+            <button class="header-btn" onclick="window.open('/src/index/mn')">赞助</button>
+        </div>
     </header>
-    <main class="container-fluid">
-  <button class="back-button" onclick="window.location.href = '/index'">返回玄关</button>	
-<div class="blog-post">
+    
+    <main>
+      <!-- Fixed Sidebar -->
+      <div class="sidebar">
+        <h3>花物语·文选<br>Literature</h3>
+        
+        <div class="sidebar-section">
+          <h4>返回</h4>
+          <button onclick="window.location.href = '/src/real/ind'">返回现实世界</button>
+          <button onclick="window.location.href = '/index'">返回玄关</button>
+        </div>
+        
+        <div class="sidebar-section">
+          <h4>分类</h4>
+          <a href="#">百合花开</a>
+          <a href="#">诗歌散文</a>
+          <a href="#">小说故事</a>
+          <a href="#">随笔杂谈</a>
+        </div>
+      </div>
+      
+      <!-- Blog Content Area -->
+      <div class="blog-container">
+        <div class="page-title">
+          <h1>花物语·文选</h1>
+          <p>用文字编织梦境，以故事诉说心声</p>
+        </div>
 
-  <h3 class="blog-post-title"><a href="hana/240622himawari">花物语·向日葵</a></h3>
-  <p class="blog-post-meta">公元2024年6月22日 分组：<a href="#">百合花开</a></p>
-  <p class="blog-post-content">礼堂里四下无声。静寂的气氛如身着银盔的白骑士一般守护着这里，白骑士用望着将受洗礼的孩子们的眼神凝视着台阶下，创造了这片圣域。窗外的蝉鸣声被隔绝在外，听不分明；六月那似要焚烧一切的昼光和潮湿闷热的空气都没能渗入这圣域里分毫。...</p>
-</div>
-<hr/> 
+        <div class="blog-post">
+          <h2><a href="hana/240622himawari">花物语·向日葵</a></h2>
+          <p class="blog-post-meta">公元2024年6月22日 | 分组：<a href="#">百合花开</a></p>
+          <p class="blog-post-content">礼堂里四下无声。静寂的气氛如身着银盔的白骑士一般守护着这里，白骑士用望着将受洗礼的孩子们的眼神凝视着台阶下，创造了这片圣域。窗外的蝉鸣声被隔绝在外，听不分明；六月那似要焚烧一切的昼光和潮湿闷热的空气都没能渗入这圣域里分毫。...</p>
+        </div>
 
-<div class="blog-post">
-  <h3 class="blog-post-title"><a href="hana/240607lonicera">花物语·金缕梅</a></h3>
-  <p class="blog-post-meta">帝国纪年1534年8月18日 分组：<a href="#">百合花开</a></p>
-  <p class="blog-post-content">晨天未明。
+        <div class="blog-post">
+          <h2><a href="hana/240607lonicera">花物语·金缕梅</a></h2>
+          <p class="blog-post-meta">帝国纪年1534年8月18日 | 分组：<a href="#">百合花开</a></p>
+          <p class="blog-post-content">晨天未明。
 冷月的寒风依然没有吹却，这片大地也未曾听闻春天到来的消息。
 锐儿裹着厚厚的冬衣，一步一步缓缓地走在中央区十七号街拐角的小巷里。巷子里的积雪无人清扫，也没有完全融化，镜子一样的冰水和着灰白色的雪堆紧紧附着在路面上，...</p>
-</div>
-<hr/>
+        </div>
 
-<div class="blog-post">
-  <h3 class="blog-post-title"><a href="hana/240508xerochry">花物语·麦秆菊</a></h3>
-  <p class="blog-post-meta">帝国纪年1534年7月18日 分组：<a href="#">百合花开</a></p>
-  <p class="blog-post-content">这是战争结束后入春的第二个月份。
+        <div class="blog-post">
+          <h2><a href="hana/240508xerochry">花物语·麦秆菊</a></h2>
+          <p class="blog-post-meta">帝国纪年1534年7月18日 | 分组：<a href="#">百合花开</a></p>
+          <p class="blog-post-content">这是战争结束后入春的第二个月份。
 天空中只有渺无边际的云，深色云朵带着雨点降临。她无染原罪，使得一切尘烟都被裹挟着接受了审判。...</p>
-</div>
-<hr/>
+        </div>
 
-<nav>
-  <ul class="pager">
-    <li class="previous"><a href="#"><span aria-hidden="true">←</span> 上一页</a></li>
-    <li class="next"><a href="#">下一页 <span aria-hidden="true">→</span></a></li>
-  </ul>
-</nav>
-    <div class="col-sm-3 col-sm-offset-1">
-
-<div class="sidebar-module sidebar-module-inset">
-  <div class="avatar">
-    <img class="img-circle img-rounded img-thumbnail avatar" src="static/img/3.jpg">
-    <div>
-      <h4>花菱灯枝</h4>
-      <a>Hanaajanen at GitHub</a>
-    </div>
-  </div>
-  <p>法国骑士，好吗？好的。</p>
-</div>
+        <nav style="text-align: center; margin-top: 40px;">
+          <a href="#" style="margin: 0 15px; padding: 10px 20px; background-color: rgba(255, 255, 255, 0.15); border-radius: 5px; display: inline-block;">
+            <span aria-hidden="true">←</span> 上一页
+          </a>
+          <a href="#" style="margin: 0 15px; padding: 10px 20px; background-color: rgba(255, 255, 255, 0.15); border-radius: 5px; display: inline-block;">
+            下一页 <span aria-hidden="true">→</span>
+          </a>
+        </nav>
+      </div>
     </main>
-    <footer><a onclick="window.open('https://space.bilibili.com/12511105')">关注我们</a></footer>
-  </body>
+    
     <script src="/src/js/jquery.min.js"></script>
     <script src="/src/js/bootstrap.min.js"></script>
     <script src="/src/js/scripts.js"></script>
+  </body>
 </html>

@@ -16,16 +16,29 @@
         // 设置背景图片
       document.body.style.backgroundImage = `url(${backgroundImage})`;
       
-      // 关于馆长展开/收起功能
+      // 关于馆长模态框功能
       document.addEventListener('DOMContentLoaded', function() {
-      var content = document.getElementById("content");
-      document.getElementById("title").onclick = function() {
-        if (content.style.display === "none" || content.style.display === "") {
-          content.style.display = "block";
-        } else {
-          content.style.display = "none";
+      var modal = document.getElementById("aboutModal");
+      var btn = document.getElementById("aboutButton");
+      var span = document.getElementsByClassName("close")[0];
+      
+      if (btn) {
+        btn.onclick = function() {
+          modal.style.display = "block";
         }
-      };
+      }
+      
+      if (span) {
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+      }
+      
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
     });
     
     // 搜索功能 - 搜索幻想世界和其他页面

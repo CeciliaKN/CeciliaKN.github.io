@@ -4,50 +4,89 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Miunero丨La Grande Bibliothèque de Tomoe</title>
+    <title>Miunero丨La Grande Bibliothèque de ShioLilia</title>
     <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
     <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
     <meta name="description" content="Personal Blog Web by Tomoe Hanabishi">
     <meta name="author" content="Hanabishi Tomoe">
 	<meta name="keywords" content="Four Seasons">
     <link href="/src/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/src/css/index_style.css" rel="stylesheet">
-
+    <link href="/src/css/real_style.css" rel="stylesheet">
   </head>
   <body>
     <header>
-	<a onclick="window.open('/src/index/talk')">相谈</a>
-        <a onclick="window.open('/src/index/friends')">友人</a>
-        <a onclick="window.open('/src/index/mn')">赞助</a>
+        <div class="header-left">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="cn">CN</button>
+                <button class="lang-btn" data-lang="jp">JP</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="la">LA</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="window.open('/src/index/talk')">相谈</button>
+            <button class="header-btn" onclick="window.open('/src/index/friends')">友人</button>
+            <button class="header-btn" onclick="window.open('/src/index/mn')">赞助</button>
+        </div>
     </header>
-    <main class="container-fluid">
-	  <div class="column">
-		  <div class="col-md-12">
-			  <h3 class="text-center">
-			  	Welcome to the Fantastic World<br>
-                                Aromderedo Mundese Miuneri<br>
-		  		欢迎造访幻想世界<br>
-		  	</h3>
-		  </div>
-	  </div>
-<div><br></br>
-    <button  type="submit" onclick="window.open('/src/literature/ind')"> 花物语·文选</button>
-    <button  type="submit" onclick="window.open('langue')"> 巴别塔·语库</button>
-    <button  type="submit" onclick="window.open('history')"> 千年谣·历史</button>
-    <button  type="submit" onclick="window.open('peoples')"> 虚人梦·传记</button></div>
-<br></br><br></br>
-<div class="column">
-	<h2>近期更新条目</h2>
-	<h4><a href="peoples/EP0001SaxonaNixi">锐儿·夜心</a></h4>
-	<h4><a href="wiki/R00001Sjaleta">执星者</a></h4>
-	<h4>米绪伊主义</h4>
-	<h4>三圣女之治</h4>
-	<h4>四之花</h4>
-	<h4><a href="peoples/EZ0001Miarika">梦华·岁星</a></h4>
-	<h4>索绍娅·纳彼塔缇</h4>
-</div>
+    
+    <main>
+      <!-- Fixed Sidebar -->
+      <div class="sidebar">
+        <h3>Welcome to the Fantastic World<br>Aromderedo Mundese Miuneri<br>欢迎造访幻想世界</h3>
+        
+        <div class="sidebar-section">
+          <h4>返回</h4>
+          <button onclick="window.location.href = '/index'">返回玄关</button>
+        </div>
+        
+        <div class="sidebar-section">
+          <h4>馆藏分类</h4>
+          <button onclick="window.open('/src/literature/ind')">花物语·文选</button>
+          <button onclick="window.open('langue')">巴别塔·语库</button>
+          <button onclick="window.open('history')">千年谣·历史</button>
+          <button onclick="window.open('peoples')">虚人梦·传记</button>
+        </div>
+        
+        <div class="sidebar-section">
+          <h4>近期更新条目</h4>
+          <a href="peoples/EP0001SaxonaNixi">锐儿·夜心</a>
+          <a href="wiki/R00001Sjaleta">执星者</a>
+          <a href="#">米绪伊主义</a>
+          <a href="#">三圣女之治</a>
+          <a href="#">四之花</a>
+          <a href="peoples/EZ0001Miarika">梦华·岁星</a>
+          <a href="#">索绍娅·纳彼塔缇</a>
+        </div>
+      </div>
+      
+      <!-- Blog Content Area -->
+      <div class="blog-container">
+        <div class="page-title">
+          <h1>幻想世界 | The Fantastic World</h1>
+          <p>虚构的世界，真实的情感</p>
+        </div>
+        
+        <div class="blog-post">
+          <h2>欢迎来到幻想世界</h2>
+          <p class="blog-post-meta">欢迎 | Aromde</p>
+          <p class="blog-post-content">
+            这里是幻想世界，记录着自创世界观的语言、历史、人物与故事。
+            每一个角色都有自己的命运，每一段历史都值得被铭记。
+          </p>
+        </div>
+      </div>
     </main>
-  <footer><a onclick="window.open('https://space.bilibili.com/12511105')">关注我们</a></footer>
+    
+    <script src="/src/js/jquery.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/scripts.js"></script>
+  </body>
+</html>
   </body>
     <script src="/src/js/jquery.min.js"></script>
     <script src="/src/js/bootstrap.min.js"></script>
