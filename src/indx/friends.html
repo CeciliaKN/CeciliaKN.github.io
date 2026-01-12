@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>友人丨La Grand Bibliothèque</title>
+    <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
+    <meta name="description" content="Personal Blog Web by ShioLilia">
+    <meta name="author" content="ShioLilia">
+    <meta name="keywords" content="Four Seasons">
+    <link href="/src/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/css/main_style.css" rel="stylesheet">
+    <style>
+      .friend-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+      .friend-card:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-5px);
+      }
+      .friend-card h3 {
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+      .friend-card p {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 10px;
+        line-height: 1.6;
+      }
+      .friend-card a {
+        color: #8db4e2;
+        text-decoration: none;
+        word-break: break-all;
+      }
+      .friend-card a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+        <div class="header-left">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="cn">CN</button>
+                <button class="lang-btn" data-lang="jp">JP</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="la">LA</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="window.location.href='/src/indx/talk.html'">相谈</button>
+            <button class="header-btn" onclick="window.location.href='/src/indx/friends.html'">友人</button>
+            <button class="header-btn" onclick="window.location.href='/src/indx/sponsor.html'">赞助</button>
+        </div>
+    </header>
+    
+    <main>
+      <!-- Fixed Sidebar -->
+      <div class="sidebar">
+        <h3>友人帐<br>Friends</h3>
+        
+        <div class="sidebar-section">
+          <h4>返回</h4>
+          <button onclick="window.location.href='/src/cn/real/ind.html'">返回blog</button>
+          <button onclick="window.location.href='/index.html'">返回首页</button>
+        </div>
+        
+        <div class="sidebar-section">
+          <h4>友链申请</h4>
+          <p style="font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.8);">
+            如果想与我交换友链，请在相谈室留言或通过GitHub联系我。
+          </p>
+        </div>
+      </div>
+      
+      <!-- Main Content Area -->
+      <div class="blog-container">
+        <div class="page-title">
+          <h1>友人帐</h1>
+          <p>我的朋友们</p>
+        </div>
+        
+        <div class="blog-detail">
+          <div class="content">
+            <p>这里收录了一些我欣赏的友人站点。</p>
+            <p>如果您也想与我交换友链，欢迎在相谈室留言！</p>
+          </div>
+          
+          <!-- Friend Links -->
+          <div class="friend-links" style="margin-top: 30px;">
+            <!-- 示例友链，请根据需要添加 -->
+            <!--
+            <div class="friend-card">
+              <h3>朋友名字</h3>
+              <p>简短的介绍文字</p>
+              <p><strong>链接：</strong><a href="https://example.com" target="_blank">https://example.com</a></p>
+            </div>
+            -->
+            
+            <div style="padding: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 8px;">
+              <p style="color: rgba(255, 255, 255, 0.6); text-align: center;">
+                暂无友链，欢迎成为第一位！
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="/src/js/jquery.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/scripts.js"></script>
+  </body>
+</html>

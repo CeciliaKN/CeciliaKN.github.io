@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>赞助丨La Grand Bibliothèque</title>
+    <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
+    <meta name="description" content="Personal Blog Web by ShioLilia">
+    <meta name="author" content="ShioLilia">
+    <meta name="keywords" content="Four Seasons">
+    <link href="/src/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/css/main_style.css" rel="stylesheet">
+    <style>
+      .sponsor-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        backdrop-filter: blur(10px);
+        text-align: center;
+      }
+      .sponsor-card h3 {
+        color: #fff;
+        margin-bottom: 15px;
+        font-size: 24px;
+      }
+      .sponsor-card p {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+      .sponsor-btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin: 10px;
+      }
+      .sponsor-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        color: white;
+        text-decoration: none;
+      }
+      .sponsor-btn.github {
+        background: linear-gradient(135deg, #2dba4e 0%, #1a7f37 100%);
+      }
+      .sponsor-btn.buymeacoffee {
+        background: linear-gradient(135deg, #FFDD00 0%, #FFA500 100%);
+        color: #000;
+      }
+      .sponsor-btn.buymeacoffee:hover {
+        color: #000;
+        box-shadow: 0 5px 20px rgba(255, 221, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+        <div class="header-left">
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="cn">CN</button>
+                <button class="lang-btn" data-lang="jp">JP</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="la">LA</button>
+            </div>
+        </div>
+        <div class="header-center">
+            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
+            <button class="search-btn" onclick="performSearch()">🔍</button>
+        </div>
+        <div class="header-right">
+            <button class="header-btn" onclick="window.location.href='/src/indx/talk.html'">相谈</button>
+            <button class="header-btn" onclick="window.location.href='/src/indx/friends.html'">友人</button>
+            <button class="header-btn" onclick="window.location.href='/src/indx/sponsor.html'">赞助</button>
+        </div>
+    </header>
+    
+    <main>
+      <!-- Fixed Sidebar -->
+      <div class="sidebar">
+        <h3>赞助支持<br>Sponsor</h3>
+        
+        <div class="sidebar-section">
+          <h4>返回</h4>
+          <button onclick="window.location.href='/src/cn/real/ind.html'">返回blog</button>
+          <button onclick="window.location.href='/index.html'">返回首页</button>
+        </div>
+        
+        <div class="sidebar-section">
+          <h4>关于赞助</h4>
+          <p style="font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.8);">
+            如果你喜欢我的内容，欢迎通过以下方式支持我。你的支持是我持续创作的动力！
+          </p>
+        </div>
+      </div>
+      
+      <!-- Main Content Area -->
+      <div class="blog-container">
+        <div class="page-title">
+          <h1>赞助支持</h1>
+          <p>感谢你的支持与鼓励</p>
+        </div>
+        
+        <div class="blog-detail">
+          <div class="content">
+            <p style="text-align: center; font-size: 18px; margin-bottom: 40px;">
+              如果你喜欢我的文字和创作，欢迎赞助支持！<br>
+              你的每一份心意，都是我继续前行的动力。
+            </p>
+          </div>
+          
+          <!-- Sponsor Options -->
+          <div class="sponsor-options" style="margin-top: 30px;">
+            <!-- GitHub Sponsor -->
+            <div class="sponsor-card">
+              <h3>⭐ GitHub Sponsor</h3>
+              <p>
+                通过 GitHub Sponsors 支持我的开源工作和内容创作。<br>
+                支持多种赞助档位，可以获得专属徽章和赞助者展示。
+              </p>
+              <a href="https://github.com/sponsors/ShioLilia" target="_blank" class="sponsor-btn github">
+                💖 成为 GitHub 赞助者
+              </a>
+            </div>
+            
+            <!-- Buy Me a Coffee -->
+            <div class="sponsor-card">
+              <h3>☕ Buy Me a Coffee</h3>
+              <p>
+                想给我买杯咖啡吗？<br>
+                一次性赞助，简单快捷，无需注册。
+              </p>
+              <a href="https://buymeacoffee.com/shiolilia" target="_blank" class="sponsor-btn buymeacoffee">
+                ☕ 请我喝咖啡
+              </a>
+              <p style="font-size: 12px; color: rgba(255, 255, 255, 0.5); margin-top: 10px;">
+                （请将上面链接替换为你的真实 Buy Me a Coffee 链接）
+              </p>
+            </div>
+            
+            <!-- Thank You Message -->
+            <div style="margin-top: 40px; padding: 30px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; text-align: center;">
+              <h3 style="color: #fff; margin-bottom: 15px;">💝 感谢</h3>
+              <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.8;">
+                感谢每一位赞助者的支持！<br>
+                你们的鼓励让我能够持续创作，为大家带来更多优质内容。<br>
+                无论支持多少，都是对我最大的肯定！
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="/src/js/jquery.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/scripts.js"></script>
+  </body>
+</html>
