@@ -409,6 +409,30 @@ main {
   white-space: pre-line; /* 保留换行符，自动换行 */
 }
 
+/* Blog location */
+.blog-location {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+/* Read more link */
+.read-more {
+  display: inline-block;
+  margin-top: 10px;
+  color: #8db4e2;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.read-more:hover {
+  color: #b8d4f1;
+  transform: translateX(5px);
+}
+
 /* Literature - 详情页大容器 */
 .blog-post-in {
   max-width: 1350px;
