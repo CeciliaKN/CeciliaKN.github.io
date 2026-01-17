@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
+    <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
     <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
   <title>Sonnet Checker - Check Rhyme and Meter</title>
   <style>
@@ -216,13 +216,17 @@
     }
 
     .syllable.meter-correct {
-      color: #059669; /* 深绿色 - 符合抑扬格位置的主重音 */
+      color: #059669; /* Dark green - primary stress in correct metrical position */
       font-weight: 600;
     }
 
     .syllable.meter-correct-secondary {
-      color: #10b981; /* 浅绿色 - 符合抑扬格位置的次重音 */
+      color: #10b981; /* Light green - secondary stress in correct metrical position */
       font-weight: 500;
+    }
+
+    .syllable.meter-correct-unstressed {
+      color: #34d399; /* Lighter green - unstressed syllable in correct metrical position */
     }
 
     .syllable.meter-error {
@@ -324,10 +328,17 @@
         grid-template-columns: 1fr;
       }
     }
+      body {
+        background-image: url('/src/bg/inside.png');
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+      }
   </style>
-  <script type="module" crossorigin src="/src/sonnetaw/assets/index-Dnh9ICHH.js"></script>
+  <script type="module" crossorigin src="/src/sonnetaw/assets/main-DfZ02kE4.js"></script>
+  <link rel="modulepreload" crossorigin href="/src/sonnetaw/assets/config-DfpIdl4h.js">
 </head>
-<body>
+<body data-custom-bg>
   <div class="container">
     <header>
       <h1>🌹 Sonnet Checker</h1>
@@ -360,6 +371,27 @@
             <select id="sonnetForm">
               <option value="shakespearean">Shakespearean</option>
             </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="meterMode">
+              Meter Checking Mode
+              <small>(Strictness of meter validation)</small>
+            </label>
+            <select id="meterMode">
+              <option value="lenient">Lenient (Recommended)</option>
+              <option value="strict">Strict</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="intelligentMode">
+              <input type="checkbox" id="intelligentMode" checked style="width: auto; margin-right: 5px;">
+              Intelligent Mode
+              <small>(Estimate unknown words)</small>
+            </label>
           </div>
         </div>
 
