@@ -442,8 +442,8 @@ main {
   border: 1px solid #ccc;
   word-wrap: break-word;
   /* 增加背景不透明度，使文字更易读 */
-  background-color: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(8px);
+  background-color: rgba(30, 30, 30, 0.45);
+  backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(8px);
   border-radius: 8px;
 }
