@@ -407,6 +407,7 @@ main {
   line-height: 1.8;
   font-size: 15px;
   white-space: pre-line; /* 保留换行符，自动换行 */
+  text-indent: 2em; /* 每段首行缩进两个字符 */
 }
 
 /* Blog location */
@@ -442,10 +443,14 @@ main {
   border: 1px solid #ccc;
   word-wrap: break-word;
   /* 增加背景不透明度，使文字更易读 */
-  background-color: rgba(30, 30, 30, 0.45);
+  background-color: rgba(30, 30, 30, 0.35);
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(4px);
   border-radius: 8px;
+}
+
+.blog-post-title-in {
+  margin-top: 25px; /* 增加与返回按钮的间距 */
 }
 
 .blog-post-title-in a {
@@ -459,6 +464,8 @@ main {
 .blog-post-content-in {
   font-size: 1em;
   white-space: pre-line; /* 保留换行符，自动换行 */
+  text-indent: 2em; /* 每段首行缩进两个字符 */
+  line-height: 1; /* 增加行距 */
 }
 
 /* ==========================================
