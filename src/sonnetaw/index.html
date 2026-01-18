@@ -206,22 +206,23 @@
     }
 
     .syllable.stress-1 {
-      color: #d97706;
+      color: #d97706; /* 深黄色 - 重音在错误位置（轻音位） */
       font-weight: 600;
     }
 
     .syllable.stress-2 {
-      color: #f59e0b;
+      color: #f59e0b; /* 浅黄色 - 次重音在错误位置（轻音位） */
       font-weight: 500;
     }
 
+    /* meter-correct 类必须在 stress 类之后，以覆盖颜色 */
     .syllable.meter-correct {
-      color: #059669; /* Dark green - primary stress in correct metrical position */
+      color: #059669 !important; /* 深绿色 - 主重音在正确位置（重音位） */
       font-weight: 600;
     }
 
     .syllable.meter-correct-secondary {
-      color: #10b981; /* Light green - secondary stress in correct metrical position */
+      color: #10b981 !important; /* 浅绿色 - 次重音在正确位置（重音位） */
       font-weight: 500;
     }
 
@@ -345,7 +346,7 @@
         background-size: cover;
       }
   </style>
-  <script type="module" crossorigin src="/src/sonnetaw/assets/main-aCKVt7uc.js"></script>
+  <script type="module" crossorigin src="/src/sonnetaw/assets/main-FS5iYH-O.js"></script>
   <link rel="modulepreload" crossorigin href="/src/sonnetaw/assets/config-DfpIdl4h.js">
 </head>
 <body data-custom-bg>
