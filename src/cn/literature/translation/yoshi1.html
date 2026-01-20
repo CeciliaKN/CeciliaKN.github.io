@@ -15,9 +15,17 @@
     <style>
       body {
         background-image: url('/src/bg/inside.png');
-        background-position: center;
+        background-position: center center;
         background-size: cover;
         background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+      
+      /* 移动端优化：禁用fixed以避免缩放问题 */
+      @media (max-width: 768px) {
+        body {
+          background-attachment: scroll;
+        }
       }
     </style>
   </head>
