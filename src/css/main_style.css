@@ -17,6 +17,7 @@ body {
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* 通用链接样式 */
