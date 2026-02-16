@@ -15,7 +15,7 @@
 
     body {
       font-family: 'Georgia', serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-color: #f5f5f5;
       min-height: 100vh;
       padding: 20px;
     }
@@ -23,21 +23,22 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.9);
       border-radius: 10px;
       padding: 30px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     header {
       text-align: center;
       margin-bottom: 30px;
       padding-bottom: 20px;
-      border-bottom: 2px solid #667eea;
+      border-bottom: 2px solid #888;
     }
 
     h1 {
-      color: #667eea;
+      color: #333;
       font-size: 2.5em;
       margin-bottom: 10px;
     }
@@ -50,12 +51,13 @@
     .nav-link {
       display: inline-block;
       margin-top: 10px;
-      color: #667eea;
+      color: #666;
       text-decoration: none;
       font-size: 0.9em;
     }
 
     .nav-link:hover {
+      color: #333;
       text-decoration: underline;
     }
 
@@ -83,22 +85,23 @@
 
     input[type="text"]:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      border-color: #888;
+      box-shadow: 0 0 0 3px rgba(100, 100, 100, 0.1);
     }
 
     button {
       padding: 12px 30px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: rgba(80, 80, 80, 0.9);
       color: white;
       border: none;
       border-radius: 5px;
       font-size: 1.1em;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
     }
 
     button:hover {
+      background: rgba(60, 60, 60, 0.95);
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
@@ -123,11 +126,11 @@
       align-items: center;
       margin-bottom: 20px;
       padding-bottom: 10px;
-      border-bottom: 2px solid #667eea;
+      border-bottom: 2px solid #888;
     }
 
     .results-header h2 {
-      color: #667eea;
+      color: #333;
       font-size: 1.8em;
     }
 
@@ -152,8 +155,8 @@
     }
 
     .word-card:hover {
-      background-color: #e8e8ff;
-      border-color: #667eea;
+      background-color: #e8e8e8;
+      border-color: #888;
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
@@ -180,7 +183,7 @@
     .loading {
       text-align: center;
       padding: 40px;
-      color: #667eea;
+      color: #666;
       font-size: 1.2em;
     }
 
@@ -214,7 +217,7 @@
 
     .filter-section select:focus {
       outline: none;
-      border-color: #667eea;
+      border-color: #888;
     }
 
     @media (max-width: 768px) {
@@ -235,7 +238,7 @@
 <body data-custom-bg>   
   <div class="container">
     <header>
-      <h1>🎵 Rhyme Helper</h1>
+      <h1>韵律助手</h1>
       <p class="subtitle">Find perfect rhymes for your sonnet</p>
       <a href="index.html" class="nav-link">← Back to Sonnet Checker</a>
     </header>
@@ -281,6 +284,7 @@
       Loading dictionary...
     </div>
   </div>
-
+
+
 </body>
 </html>

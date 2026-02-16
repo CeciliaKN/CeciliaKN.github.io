@@ -15,7 +15,7 @@
 
     body {
       font-family: 'Georgia', serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-color: #f5f5f5;
       min-height: 100vh;
       padding: 20px;
     }
@@ -23,17 +23,19 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 15px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: rgba(50, 50, 50, 0.85);
       color: white;
       padding: 30px;
       text-align: center;
+      backdrop-filter: blur(10px);
     }
 
     header h1 {
@@ -59,7 +61,7 @@
     }
 
     .panel h2 {
-      color: #667eea;
+      color: #333;
       margin-bottom: 15px;
       font-size: 1.5em;
     }
@@ -93,13 +95,13 @@
     }
 
     select:hover {
-      border-color: #667eea;
+      border-color: #888;
     }
 
     select:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      border-color: #666;
+      box-shadow: 0 0 0 3px rgba(100, 100, 100, 0.1);
     }
 
     .form-row {
@@ -121,19 +123,20 @@
     }
 
     button {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: rgba(80, 80, 80, 0.9);
       color: white;
       border: none;
       padding: 12px 30px;
       font-size: 1.1em;
       border-radius: 5px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: all 0.3s ease;
       margin-right: 10px;
       margin-bottom: 10px;
     }
 
     button:hover {
+      background: rgba(60, 60, 60, 0.95);
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
@@ -143,11 +146,11 @@
     }
 
     .secondary-btn {
-      background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+      background: rgba(120, 120, 120, 0.8);
     }
 
     .secondary-btn:hover {
-      background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+      background: rgba(100, 100, 100, 0.9);
     }
 
     #output {
@@ -276,7 +279,7 @@
     }
 
     .summary h3 {
-      color: #667eea;
+      color: #333;
       margin-bottom: 15px;
     }
 
@@ -312,7 +315,7 @@
 
     .legend h4 {
       margin-bottom: 10px;
-      color: #667eea;
+      color: #333;
     }
 
     .legend-item {
@@ -355,7 +358,7 @@
       <h1>🌹 Sonnet Checker</h1>
       <p>Analyze rhyme schemes and meter patterns in your poetry</p>
       <a href="rhyme-helper.html" style="display: inline-block; margin-top: 10px; color: white; text-decoration: none; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 5px; font-size: 0.9em;">
-        🎵 Rhyme Helper
+        韵律助手
       </a>
     </header>
 
@@ -446,6 +449,7 @@ Thou art more lovely and more temperate..."></textarea>
       </div>
     </div>
   </div>
-
+
+
 </body>
 </html>
