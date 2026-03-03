@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>登录/注册丨La Grand Bibliothèque</title>
+    <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
+    <meta name="description" content="用户登录注册">
+    <meta name="author" content="Lilia">
+    <link href="/src/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/css/main_style.css" rel="stylesheet">
+    <style>
+        .auth-container {
+            max-width: 500px;
+            margin: 80px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-tab.active {
+            border-bottom-color: #8db4e2;
+            color: #8db4e2;
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #8db4e2;
+            box-shadow: 0 0 0 3px rgba(141, 180, 226, 0.1);
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #8db4e2, #b4d7ff);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(141, 180, 226, 0.3);
+        }
+        
+        .auth-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        
+        .health-status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .health-status.online {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .health-status.offline {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header组件容器 -->
+    <div id="header-container"></div>
+
+    <div class="auth-container">
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchTab('login')">登录</button>
+            <button class="auth-tab" onclick="switchTab('register')">注册</button>
+        </div>
+
+        <div id="login-form" class="auth-form active">
+            <div id="login-alert" class="alert"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="login-username">用户名</label>
+                    <input type="text" id="login-username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">密码</label>
+                    <input type="password" id="login-password" class="form-control" required>
+                </div>
+                <button type="submit" class="auth-btn">登录</button>
+            </form>
+        </div>
+
+        <div id="register-form" class="auth-form">
+            <div id="register-alert" class="alert"></div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="register-username">用户名</label>
+                    <input type="text" id="register-username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">邮箱</label>
+                    <input type="email" id="register-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">密码</label>
+                    <input type="password" id="register-password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">确认密码</label>
+                    <input type="password" id="register-confirm-password" class="form-control" required>
+                </div>
+                <button type="submit" class="auth-btn">注册</button>
+            </form>
+        </div>
+
+        <div id="health-status" class="health-status">
+            正在检查服务状态...
+        </div>
+    </div>
+
+    <script src="/src/js/jquery.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/scripts.js"></script>
+    <script src="/src/js/header-component.js"></script>
+    <script src="/src/js/blog-auth-sdk.js"></script>
+    <script>
+        // 初始化认证页面header（带返回按钮）
+        document.addEventListener('DOMContentLoaded', function() {
+            initAuthHeader();
+        });
+        // 初始化认证SDK
+        const auth = new BlogBackendAuth();
+
+        // 页面加载时检查健康状态
+        document.addEventListener('DOMContentLoaded', function() {
+            checkHealthStatus();
+            
+            // 如果用户已经登录，重定向到个人页面
+            if (auth.isLoggedIn()) {
+                window.location.href = '/src/cn/auth/profile.html';
+            }
+        });
+
+        // 切换登录/注册标签
+        function switchTab(tabName) {
+            // 更新标签状态
+            document.querySelectorAll('.auth-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // 显示对应表单
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.getElementById(tabName + '-form').classList.add('active');
+
+            // 清除提示信息
+            clearAlerts();
+        }
+
+        // 清除提示信息
+        function clearAlerts() {
+            document.querySelectorAll('.alert').forEach(alert => {
+                alert.style.display = 'none';
+                alert.textContent = '';
+            });
+        }
+
+        // 显示提示信息
+        function showAlert(type, message, alertId) {
+            const alert = document.getElementById(alertId);
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+        }
+
+        // 检查服务健康状态
+        async function checkHealthStatus() {
+            try {
+                const status = await auth.healthCheck();
+                const statusElement = document.getElementById('health-status');
+                statusElement.className = 'health-status online';
+                statusElement.textContent = '✓ 服务器连接正常';
+            } catch (error) {
+                const statusElement = document.getElementById('health-status');
+                statusElement.className = 'health-status offline';
+                statusElement.textContent = '✗ 服务器连接失败: ' + error.message;
+            }
+        }
+
+        // 登录表单处理
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.auth-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '登录中...';
+            
+            clearAlerts();
+            
+            try {
+                const username = document.getElementById('login-username').value;
+                const password = document.getElementById('login-password').value;
+                
+                const result = await auth.login(username, password);
+                
+                if (result.success) {
+                    showAlert('success', '登录成功！正在跳转...', 'login-alert');
+                    setTimeout(() => {
+                        window.location.href = '/src/cn/auth/profile.html';
+                    }, 1500);
+                } else {
+                    showAlert('danger', result.error || '登录失败', 'login-alert');
+                }
+            } catch (error) {
+                showAlert('danger', '网络错误: ' + error.message, 'login-alert');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '登录';
+            }
+        });
+
+        // 注册表单处理
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.auth-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '注册中...';
+            
+            clearAlerts();
+            
+            try {
+                const username = document.getElementById('register-username').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const confirmPassword = document.getElementById('register-confirm-password').value;
+                
+                // 验证密码匹配
+                if (password !== confirmPassword) {
+                    showAlert('danger', '密码不匹配', 'register-alert');
+                    return;
+                }
+                
+                const result = await auth.register(username, email, password);
+                
+                if (result.success) {
+                    showAlert('success', '注册成功！正在跳转...', 'register-alert');
+                    setTimeout(() => {
+                        window.location.href = '/src/cn/auth/profile.html';
+                    }, 1500);
+                } else {
+                    showAlert('danger', result.error || '注册失败', 'register-alert');
+                }
+            } catch (error) {
+                showAlert('danger', '网络错误: ' + error.message, 'register-alert');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '注册';
+            }
+        });
+    </script>
+</body>
+</html>

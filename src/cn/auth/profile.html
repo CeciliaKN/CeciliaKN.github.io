@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>个人信息丨La Grand Bibliothèque</title>
+    <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
+    <meta name="description" content="用户个人信息">
+    <meta name="author" content="Lilia">
+    <link href="/src/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/css/main_style.css" rel="stylesheet">
+    <style>
+        .profile-container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .profile-header h1 {
+            color: #8db4e2;
+            margin-bottom: 10px;
+        }
+        
+        .user-status {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .profile-section {
+            margin-bottom: 40px;
+        }
+        
+        .profile-section h3 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            min-width: 120px;
+            color: #333;
+        }
+        
+        .info-value {
+            color: #666;
+            flex: 1;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #8db4e2;
+            box-shadow: 0 0 0 3px rgba(141, 180, 226, 0.1);
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8db4e2, #b4d7ff);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(141, 180, 226, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .permissions-list {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .permission-item {
+            display: inline-block;
+            background: #8db4e2;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px;
+            font-size: 12px;
+        }
+        
+        .textarea-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header组件容器 -->
+    <div id="header-container"></div>
+
+    <div id="loading" class="loading">
+        <p>正在加载用户信息...</p>
+    </div>
+
+    <div id="profile-content" class="profile-container" style="display: none;">
+        <div class="profile-header">
+            <h1 id="user-welcome">欢迎回来！</h1>
+            <div class="user-status" id="user-status"></div>
+        </div>
+
+        <!-- 用户基本信息 -->
+        <div class="profile-section">
+            <h3>基本信息</h3>
+            <div id="user-info">
+                <div class="info-row">
+                    <span class="info-label">用户名:</span>
+                    <span class="info-value" id="display-username">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">邮箱:</span>
+                    <span class="info-value" id="display-email">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">注册时间:</span>
+                    <span class="info-value" id="display-created">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">当前权限:</span>
+                    <div class="info-value">
+                        <div id="user-permissions" class="permissions-list">
+                            正在获取权限信息...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 个人简介编辑 -->
+        <div class="profile-section">
+            <h3>个人简介</h3>
+            <div id="bio-alert" class="alert"></div>
+            <form id="bioForm">
+                <div class="form-group">
+                    <label for="user-bio">简介</label>
+                    <textarea id="user-bio" class="form-control textarea-control" 
+                              placeholder="介绍一下自己吧..." maxlength="500"></textarea>
+                    <small class="text-muted">最多500字符</small>
+                </div>
+                <button type="submit" class="btn btn-primary">更新简介</button>
+            </form>
+        </div>
+
+        <!-- 修改密码 -->
+        <div class="profile-section">
+            <h3>修改密码</h3>
+            <div id="password-alert" class="alert"></div>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label for="current-password">当前密码</label>
+                    <input type="password" id="current-password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">新密码</label>
+                    <input type="password" id="new-password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-new-password">确认新密码</label>
+                    <input type="password" id="confirm-new-password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">修改密码</button>
+            </form>
+        </div>
+
+        <!-- 账户操作 -->
+        <div class="profile-section">
+            <h3>账户操作</h3>
+            <button class="btn btn-danger" onclick="logout()">退出登录</button>
+        </div>
+    </div>
+
+    <div id="login-prompt" class="profile-container" style="display: none;">
+        <div class="profile-header">
+            <h1>未登录</h1>
+            <p>请先登录以查看个人信息</p>
+            <button class="btn btn-primary" onclick="window.location.href='/src/cn/auth/login.html'">
+                前往登录
+            </button>
+        </div>
+    </div>
+
+    <script src="/src/js/jquery.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/scripts.js"></script>
+    <script src="/src/js/header-component.js"></script>
+    <script src="/src/js/blog-auth-sdk.js"></script>
+    <script>
+        // 初始化认证页面header（带返回按钮）
+        document.addEventListener('DOMContentLoaded', function() {
+            initAuthHeader();
+        });
+        // 初始化认证SDK
+        const auth = new BlogBackendAuth();
+
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+        });
+
+        // 初始化页面
+        async function initializePage() {
+            if (!auth.isLoggedIn()) {
+                showLoginPrompt();
+                return;
+            }
+
+            try {
+                await loadUserData();
+                showProfileContent();
+            } catch (error) {
+                console.error('加载用户数据失败:', error);
+                showLoginPrompt();
+            }
+        }
+
+        // 显示登录提示
+        function showLoginPrompt() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('profile-content').style.display = 'none';
+            document.getElementById('login-prompt').style.display = 'block';
+        }
+
+        // 显示个人信息内容
+        function showProfileContent() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('login-prompt').style.display = 'none';
+            document.getElementById('profile-content').style.display = 'block';
+        }
+
+        // 加载用户数据
+        async function loadUserData() {
+            // 获取用户信息
+            const userResult = await auth.getCurrentUser();
+            if (!userResult.success) {
+                throw new Error(userResult.error);
+            }
+
+            const user = userResult.user;
+            
+            // 显示基本信息
+            document.getElementById('user-welcome').textContent = `欢迎回来，${user.username}！`;
+            document.getElementById('user-status').textContent = `用户ID: ${user.id} | 角色: ${user.role || '普通用户'}`;
+            document.getElementById('display-username').textContent = user.username;
+            document.getElementById('display-email').textContent = user.email;
+            document.getElementById('display-created').textContent = user.createdAt ? 
+                new Date(user.createdAt).toLocaleDateString('zh-CN') : '未知';
+
+            // 显示简介
+            document.getElementById('user-bio').value = user.bio || '';
+
+            // 获取权限信息
+            await loadPermissions();
+        }
+
+        // 加载权限信息
+        async function loadPermissions() {
+            try {
+                const permResult = await auth.getCurrentPermissions();
+                const permContainer = document.getElementById('user-permissions');
+                
+                if (permResult.data && permResult.data.success) {
+                    const permissions = permResult.data.permissions;
+                    permContainer.innerHTML = '';
+                    
+                    if (Object.keys(permissions).length === 0) {
+                        permContainer.innerHTML = '<span class="permission-item">基础用户</span>';
+                    } else {
+                        for (const [perm, hasPermission] of Object.entries(permissions)) {
+                            if (hasPermission) {
+                                const permElement = document.createElement('span');
+                                permElement.className = 'permission-item';
+                                permElement.textContent = getPermissionName(perm);
+                                permContainer.appendChild(permElement);
+                            }
+                        }
+                    }
+                } else {
+                    permContainer.innerHTML = '<span class="permission-item">获取权限失败</span>';
+                }
+            } catch (error) {
+                console.error('获取权限失败:', error);
+                document.getElementById('user-permissions').innerHTML = '<span class="permission-item">权限信息不可用</span>';
+            }
+        }
+
+        // 权限名称映射
+        function getPermissionName(permission) {
+            const permMap = {
+                'can_edit': '编辑权限',
+                'can_comment': '评论权限',
+                'can_moderate': '管理权限',
+                'can_admin': '管理员权限'
+            };
+            return permMap[permission] || permission;
+        }
+
+        // 显示提示信息
+        function showAlert(type, message, alertId) {
+            const alert = document.getElementById(alertId);
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+
+        // 清除提示信息
+        function clearAlert(alertId) {
+            const alert = document.getElementById(alertId);
+            alert.style.display = 'none';
+        }
+
+        // 更新简介表单处理
+        document.getElementById('bioForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.btn-primary');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '更新中...';
+            
+            clearAlert('bio-alert');
+            
+            try {
+                const bio = document.getElementById('user-bio').value;
+                
+                // 这里应该调用更新用户信息的API（假设后端有这个接口）
+                // 由于当前SDK没有提供此接口，这里只是模拟
+                showAlert('success', '简介更新成功！（注意：实际更新需要后端接口支持）', 'bio-alert');
+            } catch (error) {
+                showAlert('danger', '更新失败: ' + error.message, 'bio-alert');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '更新简介';
+            }
+        });
+
+        // 修改密码表单处理
+        document.getElementById('passwordForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.btn-primary');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '修改中...';
+            
+            clearAlert('password-alert');
+            
+            try {
+                const currentPassword = document.getElementById('current-password').value;
+                const newPassword = document.getElementById('new-password').value;
+                const confirmNewPassword = document.getElementById('confirm-new-password').value;
+                
+                // 验证新密码匹配
+                if (newPassword !== confirmNewPassword) {
+                    showAlert('danger', '新密码不匹配', 'password-alert');
+                    return;
+                }
+                
+                // 这里应该调用修改密码的API（假设后端有这个接口）
+                // 由于当前SDK没有提供此接口，这里只是模拟
+                showAlert('success', '密码修改成功！（注意：实际修改需要后端接口支持）', 'password-alert');
+                
+                // 清空表单
+                this.reset();
+            } catch (error) {
+                showAlert('danger', '修改失败: ' + error.message, 'password-alert');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '修改密码';
+            }
+        });
+
+        // 退出登录
+        function logout() {
+            if (confirm('确定要退出登录吗？')) {
+                auth.logout();
+                window.location.href = '/src/cn/real/ind.html';
+            }
+        }
+    </script>
+</body>
+</html>

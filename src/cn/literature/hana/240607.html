@@ -14,25 +14,8 @@
     <link href="/src/css/main_style.css" rel="stylesheet">
   </head>
   <body data-inside-bg>
-    <header>
-        <div class="header-left">
-            <div class="language-switcher">
-                <button class="lang-btn active" data-lang="cn">CN</button>
-                <button class="lang-btn" data-lang="jp">JP</button>
-                <button class="lang-btn" data-lang="en">EN</button>
-                <button class="lang-btn" data-lang="la">LA</button>
-            </div>
-        </div>
-        <div class="header-center">
-            <input type="text" id="searchBox" class="search-box" placeholder="搜索页面...">
-            <button class="search-btn" onclick="performSearch()">搜索</button>
-        </div>
-        <div class="header-right">
-            <button class="header-btn" onclick="window.open('/src/indx/talk')">相谈</button>
-            <button class="header-btn" onclick="window.open('/src/indx/friends')">友人</button>
-            <button class="header-btn" onclick="window.open('/src/indx/mn')">赞助</button>
-        </div>
-    </header>
+    <!-- Header组件容器 -->
+    <div id="header-container"></div>
     <main class="container-fluid">
 	
 <div class="blog-post-in">
@@ -109,4 +92,7 @@
     <script src="/src/js/jquery.min.js"></script>
     <script src="/src/js/bootstrap.min.js"></script>
     <script src="/src/js/scripts.js"></script>
+    <script src="/src/js/header-component.js"></script>
+    <script src="/src/js/blog-auth-sdk.js"></script>
+    <script src="/src/js/auth-manager.js"></script>
 </html>

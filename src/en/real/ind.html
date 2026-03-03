@@ -14,25 +14,8 @@
     <link href="/src/css/main_style.css" rel="stylesheet">
   </head>
   <body>
-    <header>
-        <div class="header-left">
-            <div class="language-switcher">
-                <button class="lang-btn" data-lang="cn">CN</button>
-                <button class="lang-btn" data-lang="jp">JP</button>
-                <button class="lang-btn active" data-lang="en">EN</button>
-                <button class="lang-btn" data-lang="la">LA</button>
-            </div>
-        </div>
-        <div class="header-center">
-            <input type="text" id="searchBox" class="search-box" placeholder="Search pages...">
-            <button class="search-btn" onclick="performSearch()">搜索</button>
-        </div>
-        <div class="header-right">
-            <button class="header-btn" onclick="window.open('/src/indx/talk')">Chat</button>
-            <button class="header-btn" onclick="window.open('/src/indx/friends')">Friends</button>
-            <button class="header-btn" onclick="window.open('/src/indx/sponsor')">Sponsor</button>
-        </div>
-    </header>
+    <!-- Header组件容器 -->
+    <div id="header-container"></div>
     
     <main>
       <!-- Fixed Sidebar -->
@@ -57,5 +40,12 @@
     <script src="/src/js/jquery.min.js"></script>
     <script src="/src/js/bootstrap.min.js"></script>
     <script src="/src/js/scripts.js"></script>
+    <script src="/src/js/header-component.js"></script>
+    <script>
+        // 初始化英语页面header
+        document.addEventListener('DOMContentLoaded', function() {
+            initHeader({ currentLang: 'en' });
+        });
+    </script>
   </body>
 </html>
