@@ -77,6 +77,20 @@ class HeaderComponent {
                     margin-left: 10px;
                 }
                 
+                .header-right {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                
+                .header-btn:not(.auth-btn) {
+                    margin-right: 8px;
+                }
+                
+                .header-btn:last-of-type:not(.auth-btn) {
+                    margin-right: 20px;
+                }
+                
                 .auth-message {
                     animation: slideIn 0.3s ease-out;
                     position: fixed;
@@ -171,6 +185,15 @@ class HeaderComponent {
         
         // 自动初始化认证管理器
         this.initAuthManager();
+        
+        // 确保至少显示默认按钮
+        setTimeout(() => {
+            const authButtons = document.getElementById('auth-buttons');
+            if (authButtons && authButtons.innerHTML.trim() === '') {
+                console.log('认证按钮为空，显示默认登录按钮');
+                this.showDefaultLoginButton();
+            }
+        }, 300);
     }
 
     // 绑定事件
@@ -324,6 +347,10 @@ class HeaderComponent {
                     登录/注册
                 </button>
             `;
+            // 调试：确保按钮可见
+            console.log('登录/注册按钮已添加到页面');
+        } else {
+            console.error('找不到auth-buttons容器');
         }
     }
 
