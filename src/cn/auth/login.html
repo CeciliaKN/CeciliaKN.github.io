@@ -200,15 +200,11 @@
     <script src="/src/js/header-component.js"></script>
     <script src="/src/js/blog-auth-sdk.js"></script>
     <script>
-        // 初始化认证页面header（带返回按钮）
+        // 页面加载时检查健康状态  
         document.addEventListener('DOMContentLoaded', function() {
+            // 首先初始化认证页面header（带返回按钮）
             initAuthHeader();
-        });
-        // 初始化认证SDK
-        const auth = new BlogBackendAuth();
-
-        // 页面加载时检查健康状态
-        document.addEventListener('DOMContentLoaded', function() {
+            
             checkHealthStatus();
             
             // 如果用户已经登录，重定向到个人页面
@@ -216,6 +212,9 @@
                 window.location.href = '/src/cn/auth/profile.html';
             }
         });
+
+        // 初始化认证SDK
+        const auth = new BlogBackendAuth();
 
         // 切换登录/注册标签
         function switchTab(tabName) {

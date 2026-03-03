@@ -21,6 +21,7 @@ class HeaderComponent {
         };
         
         this.initPaths();
+        this.initStyles();
     }
 
     // 初始化路径配置
@@ -42,6 +43,74 @@ class HeaderComponent {
 
         // 计算相对路径深度
         this.pathPrefix = this.calculatePathPrefix(currentPath);
+    }
+
+    // 初始化样式
+    initStyles() {
+        if (!document.getElementById('header-auth-styles')) {
+            const styles = document.createElement('style');
+            styles.id = 'header-auth-styles';
+            styles.textContent = `
+                .auth-btn {
+                    background: linear-gradient(135deg, #8db4e2, #b4d7ff) !important;
+                    color: white !important;
+                    border: none !important;
+                    transition: all 0.3s ease !important;
+                    margin-left: 10px !important;
+                }
+                
+                .auth-btn:hover {
+                    transform: translateY(-2px) !important;
+                    box-shadow: 0 5px 15px rgba(141, 180, 226, 0.3) !important;
+                }
+                
+                .logout-btn {
+                    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+                }
+                
+                .logout-btn:hover {
+                    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3) !important;
+                }
+                
+                #auth-buttons {
+                    display: inline-block;
+                    margin-left: 10px;
+                }
+                
+                .auth-message {
+                    animation: slideIn 0.3s ease-out;
+                    position: fixed;
+                    top: 80px;
+                    right: 20px;
+                    padding: 12px 20px;
+                    border-radius: 5px;
+                    z-index: 9999;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                }
+                
+                .auth-message-success {
+                    background: #d4edda;
+                    color: #155724;
+                }
+                
+                .auth-message-danger {
+                    background: #f8d7da;
+                    color: #721c24;
+                }
+                
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(styles);
+        }
     }
 
     // 计算路径前缀
@@ -99,6 +168,9 @@ class HeaderComponent {
 
         container.innerHTML = this.generateHTML();
         this.bindEvents();
+        
+        // 自动初始化认证管理器
+        this.initAuthManager();
     }
 
     // 绑定事件
@@ -175,6 +247,112 @@ class HeaderComponent {
                 // 网络错误时直接跳转
                 window.location.href = langMappings[targetLang];
             });
+    }
+
+    // 初始化认证管理器
+    async initAuthManager() {
+        // 等待一小段时间确保DOM更新完成
+        setTimeout(async () => {
+            try {
+                // 检查是否有already loading
+                if (typeof BlogBackendAuth !== 'undefined') {
+                    // 如果AuthManager类存在且没有实例化，创建实例
+                    if (typeof AuthManager !== 'undefined' && !window.authManager) {
+                        window.authManager = new AuthManager();
+                    } else if (window.authManager) {
+                        // 如果已经有authManager实例，直接更新按钮
+                        await window.authManager.updateAuthButtons();
+                    } else {
+                        // 直接初始化认证按钮
+                        await this.initAuthButtons();
+                    }
+                } else {
+                    // BlogBackendAuth还没加载，显示默认按钮
+                    this.showDefaultLoginButton();
+                }
+            } catch (error) {
+                console.error('初始化认证管理器失败:', error);
+                // 如果失败，显示默认登录按钮
+                this.showDefaultLoginButton();
+            }
+        }, 100);
+    }
+
+    // 直接初始化认证按钮
+    async initAuthButtons() {
+        const authButtonsContainer = document.getElementById('auth-buttons');
+        if (!authButtonsContainer) return;
+
+        if (typeof BlogBackendAuth === 'undefined') {
+            this.showDefaultLoginButton();
+            return;
+        }
+
+        const auth = new BlogBackendAuth();
+        
+        if (auth.isLoggedIn()) {
+            try {
+                const userResult = await auth.getCurrentUser();
+                if (userResult.success) {
+                    const user = userResult.user;
+                    authButtonsContainer.innerHTML = `
+                        <button class="header-btn auth-btn" onclick="window.location.href='/src/cn/auth/profile.html'">
+                            ${user.username}
+                        </button>
+                        <button class="header-btn auth-btn logout-btn" onclick="window.headerComponent.logout()">
+                            退出
+                        </button>
+                    `;
+                } else {
+                    this.showDefaultLoginButton();
+                }
+            } catch (error) {
+                console.error('获取用户信息失败:', error);
+                this.showDefaultLoginButton();
+            }
+        } else {
+            this.showDefaultLoginButton();
+        }
+    }
+
+    // 显示默认登录按钮
+    showDefaultLoginButton() {
+        const authButtonsContainer = document.getElementById('auth-buttons');
+        if (authButtonsContainer) {
+            authButtonsContainer.innerHTML = `
+                <button class="header-btn auth-btn" onclick="window.location.href='/src/cn/auth/login.html'">
+                    登录/注册
+                </button>
+            `;
+        }
+    }
+
+    // 退出登录
+    async logout() {
+        if (confirm('确定要退出登录吗？')) {
+            if (typeof BlogBackendAuth !== 'undefined') {
+                const auth = new BlogBackendAuth();
+                auth.logout();
+            }
+            this.showDefaultLoginButton();
+            this.showMessage('已成功退出登录', 'success');
+        }
+    }
+
+    // 显示消息提示
+    showMessage(message, type = 'success') {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `auth-message auth-message-${type}`;
+        messageDiv.textContent = message;
+
+        document.body.appendChild(messageDiv);
+
+        // 3秒后移除消息
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+        }, 3000);
     }
 
     // 更新配置

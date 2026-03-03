@@ -124,12 +124,23 @@ let authManager;
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
-    // 确保BlogBackendAuth已加载
-    if (typeof BlogBackendAuth !== 'undefined') {
+    // 只在没有header-container的页面或header组件未初始化时，手动初始化AuthManager
+    const headerContainer = document.getElementById('header-container');
+    const authButtons = document.getElementById('auth-buttons');
+    
+    if (!headerContainer && authButtons && typeof BlogBackendAuth !== 'undefined') {
+        // 这是一个没有使用header组件但有auth-buttons容器的页面
         authManager = new AuthManager();
-    } else {
-        console.error('BlogBackendAuth未加载，无法初始化认证管理器');
+    } else if (headerContainer && !authButtons) {
+        // header-container存在但还没有auth-buttons，等待header组件渲染完成
+        setTimeout(() => {
+            const authButtonsAfterDelay = document.getElementById('auth-buttons');
+            if (authButtonsAfterDelay && typeof BlogBackendAuth !== 'undefined') {
+                authManager = new AuthManager();
+            }
+        }, 200);
     }
+    // 如果存在header-container且已有auth-buttons，说明header组件已处理认证
 });
 
 // 添加认证相关的CSS样式
@@ -175,4 +186,5 @@ authStyles.textContent = `
         }
     }
 `;
-document.head.appendChild(authStyles);
+// 注释掉，因为样式现在由header-component管理
+// document.head.appendChild(authStyles);

@@ -297,17 +297,16 @@
     <script src="/src/js/header-component.js"></script>
     <script src="/src/js/blog-auth-sdk.js"></script>
     <script>
-        // 初始化认证页面header（带返回按钮）
-        document.addEventListener('DOMContentLoaded', function() {
-            initAuthHeader();
-        });
-        // 初始化认证SDK
-        const auth = new BlogBackendAuth();
-
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化认证页面header（带返回按钮）
+            initAuthHeader();
+            
             initializePage();
         });
+        
+        // 初始化认证SDK
+        const auth = new BlogBackendAuth();
 
         // 初始化页面
         async function initializePage() {
