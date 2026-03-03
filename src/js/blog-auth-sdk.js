@@ -235,8 +235,10 @@ class BlogBackendAuth {
     }
 }
 
-// ES6模块导出
-export default BlogBackendAuth;
+// 浏览器全局对象
+if (typeof window !== 'undefined') {
+    window.BlogBackendAuth = BlogBackendAuth;
+}
 
 // CommonJS导出 (兼容Node.js)
 if (typeof module !== 'undefined' && module.exports) {
