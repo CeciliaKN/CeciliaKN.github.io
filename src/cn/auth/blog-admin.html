@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>博客管理 | La Grand Bibliothèque</title>
+    <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
+    <meta name="description" content="博客管理工具">
+    <meta name="author" content="Lilia">
+    <link href="/src/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/css/main_style.css" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .admin-header h1 {
+            color: #8db4e2;
+            margin-bottom: 10px;
+        }
+        
+        .admin-tabs {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .admin-tab {
+            display: inline-block;
+            padding: 12px 24px;
+            margin-right: 10px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-tab.active {
+            background: #8db4e2;
+            color: white;
+            border-color: #8db4e2;
+        }
+        
+        .admin-tab:hover:not(.active) {
+            background: #e9ecef;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #8db4e2;
+        }
+        
+        .form-section h3 {
+            margin-top: 0;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-control, .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            outline: none;
+            border-color: #8db4e2;
+            box-shadow: 0 0 0 3px rgba(141, 180, 226, 0.1);
+        }
+        
+        .textarea-large {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #8db4e2, #b4d7ff);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(141, 180, 226, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #e74c3c);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .alert-info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .blog-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .blog-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .blog-item h4 {
+            margin: 0 0 8px 0;
+            color: #333;
+        }
+        
+        .blog-item .meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .blog-item .actions {
+            text-align: right;
+        }
+        
+        .preview-container {
+            border: 2px solid #8db4e2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            background: white;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #8db4e2;
+            color: #8db4e2;
+            font-weight: bold;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .category-option {
+            padding: 10px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .category-option:hover {
+            border-color: #8db4e2;
+            background: #f8f9fa;
+        }
+        
+        .category-option.selected {
+            border-color: #8db4e2;
+            background: #8db4e2;
+            color: white;
+        }
+        
+        .loading-spinner {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #8db4e2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background: #8db4e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .back-link:hover {
+            background: #7aa3d1;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header组件容器 -->
+    <div id="header-container"></div>
+
+    <div id="loading" class="loading-spinner">
+        <div class="spinner"></div>
+        <p>正在验证权限...</p>
+    </div>
+
+    <div id="access-denied" class="admin-container" style="display: none;">
+        <div class="admin-header">
+            <h1>访问被拒绝</h1>
+            <p>此功能仅限管理员使用</p>
+            <a href="/src/cn/auth/profile.html" class="btn btn-primary">返回个人中心</a>
+        </div>
+    </div>
+
+    <div id="admin-content" class="admin-container" style="display: none;">
+        <a href="/src/cn/auth/profile.html" class="back-link">← 返回个人中心</a>
+        
+        <div class="admin-header">
+            <h1>内容管理中心</h1>
+            <p>创建和管理您的博客文章与文学作品</p>
+        </div>
+
+        <!-- 标签页 -->
+        <div class="admin-tabs">
+            <div class="admin-tab active" onclick="switchTab('create')">创建内容</div>
+            <div class="admin-tab" onclick="switchTab('manage')">管理内容</div>
+        </div>
+
+        <!-- 创建内容标签页 -->
+        <div id="create-tab" class="tab-content active">
+            <div class="alert" id="create-alert"></div>
+            
+            <form id="createContentForm">
+                <div class="form-section">
+                    <h3>基本信息</h3>
+                    
+                    <div class="form-group">
+                        <label for="contentType">内容类型</label>
+                        <div class="category-grid" style="grid-template-columns: repeat(2, 1fr);">
+                            <div class="category-option content-type-option" data-type="blog">
+                                博客文章
+                            </div>
+                            <div class="category-option content-type-option" data-type="literature">
+                                花物语·文选
+                            </div>
+                        </div>
+                        <input type="hidden" id="selectedContentType" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contentTitle">标题</label>
+                        <input type="text" id="contentTitle" class="form-control" required 
+                               placeholder="请输入标题">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contentCategory">分类</label>
+                        <div id="blog-categories" class="category-grid" style="display: none;">
+                            <div class="category-option category-blog" data-category="迷思">
+                                迷思
+                            </div>
+                            <div class="category-option category-blog" data-category="文论">
+                                文论
+                            </div>
+                            <div class="category-option category-blog" data-category="日程">
+                                日程
+                            </div>
+                            <div class="category-option category-blog" data-category="公告">
+                                公告
+                            </div>
+                            <div class="category-option category-blog" data-category="随笔">
+                                随笔
+                            </div>
+                            <div class="category-option category-blog" data-category="技术">
+                                技术
+                            </div>
+                        </div>
+                        <div id="literature-categories" class="category-grid" style="display: none;">
+                            <div class="category-option category-literature" data-category="百合花开">
+                                百合花开
+                            </div>
+                            <div class="category-option category-literature" data-category="现代诗集">
+                                现代诗集
+                            </div>
+                            <div class="category-option category-literature" data-category="诗词歌赋">
+                                诗词歌赋
+                            </div>
+                            <div class="category-option category-literature" data-category="翻译作品">
+                                翻译作品
+                            </div>
+                            <div class="category-option category-literature" data-category="文学心得">
+                                文学心得
+                            </div>
+                        </div>
+                        <input type="hidden" id="selectedCategory" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contentDate">发表日期</label>
+                        <input type="date" id="contentDate" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group" id="location-group">
+                        <label for="contentLocation">地理位置</label>
+                        <input type="text" id="contentLocation" class="form-control" 
+                               placeholder="例如：东京都文京区，东京大学">
+                    </div>
+                    
+                    <div class="form-group" id="literature-date-group" style="display: none;">
+                        <label for="literatureDate">作品日期</label>
+                        <input type="text" id="literatureDate" class="form-control" 
+                               placeholder="例如：公元2026年1月10日">
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>内容</h3>
+                    
+                    <div class="form-group">
+                        <label for="contentText">正文内容</label>
+                        <textarea id="contentText" class="form-control textarea-large" required
+                                  placeholder="请输入正文内容..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h3>操作</h3>
+                    <button type="button" class="btn btn-secondary" onclick="previewContent()">
+                        预览效果
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                    发布内容
+                    </button>
+                </div>
+            </form>
+            
+            <!-- 预览区域 -->
+            <div id="previewSection" style="display: none;">
+                <div class="preview-container">
+                    <div class="preview-header">内容预览</div>
+                    <div id="previewContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 管理内容标签页 -->
+        <div id="manage-tab" class="tab-content">
+            <div class="alert" id="manage-alert"></div>
+            
+            <div class="form-section">
+                <h3>内容列表</h3>
+                <p>管理您的博客文章和文学作品。注意：删除操作不可恢复，请谨慎操作</p>
+                
+                <button class="btn btn-primary" onclick="refreshContentList()">
+                    🔄 刷新列表
+                </button>
+                
+                <div id="blogList" class="blog-list">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>正在加载内容列表...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/src/js/jquery.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/scripts.js"></script>
+    <script src="/src/js/header-component.js"></script>
+    <script src="/src/js/blog-auth-sdk.js"></script>
+    <script>
+        // 初始化认证页面header
+        document.addEventListener('DOMContentLoaded', function() {
+            initAuthHeader();
+        });
+
+        // 初始化认证SDK
+        const auth = new BlogBackendAuth();
+        let selectedCategory = '';
+        let selectedContentType = '';
+
+        // 页面加载时检查权限
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminPermission();
+            initializeDateInput();
+            initializeEventListeners();
+        });
+
+        // 检查管理员权限
+        async function checkAdminPermission() {
+            if (!auth.isLoggedIn()) {
+                showAccessDenied();
+                return;
+            }
+
+            try {
+                // 检查admin权限
+                const hasAdmin = await auth.hasPermission('can_admin');
+                if (hasAdmin) {
+                    showAdminContent();
+                } else {
+                    showAccessDenied();
+                }
+            } catch (error) {
+                console.error('权限检查失败:', error);
+                showAccessDenied();
+            }
+        }
+
+        // 显示拒绝访问
+        function showAccessDenied() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('admin-content').style.display = 'none';
+            document.getElementById('access-denied').style.display = 'block';
+        }
+
+        // 显示管理员内容
+        function showAdminContent() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('access-denied').style.display = 'none';
+            document.getElementById('admin-content').style.display = 'block';
+            
+            // 加载内容列表
+            refreshContentList();
+        }
+
+        // 初始化日期输入框（默认今天）
+        function initializeDateInput() {
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('contentDate').value = formattedDate;
+        }
+
+        // 初始化事件监听器
+        function initializeEventListeners() {
+            // 内容类型选择
+            document.querySelectorAll('.content-type-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // 清除之前的选择
+                    document.querySelectorAll('.content-type-option').forEach(opt => 
+                        opt.classList.remove('selected')
+                    );
+                    
+                    // 选中当前项
+                    this.classList.add('selected');
+                    selectedContentType = this.dataset.type;
+                    document.getElementById('selectedContentType').value = selectedContentType;
+                    
+                    // 显示对应的分类选项
+                    showCategoriesForType(selectedContentType);
+                    
+                    // 切换相关字段显示
+                    updateFieldsForContentType(selectedContentType);
+                    
+                    // 清除之前选择的分类
+                    clearCategorySelection();
+                });
+            });
+
+            // 分类选择
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('category-option') && 
+                    (e.target.classList.contains('category-blog') || e.target.classList.contains('category-literature'))) {
+                    
+                    // 清除同类型的其他选择
+                    const sameTypeOptions = document.querySelectorAll(`.category-${selectedContentType}`);
+                    sameTypeOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // 选中当前项
+                    e.target.classList.add('selected');
+                    selectedCategory = e.target.dataset.category;
+                    document.getElementById('selectedCategory').value = selectedCategory;
+                }
+            });
+        }
+
+        // 显示对应内容类型的分类选项
+        function showCategoriesForType(type) {
+            const blogCategories = document.getElementById('blog-categories');
+            const literatureCategories = document.getElementById('literature-categories');
+            
+            if (type === 'blog') {
+                blogCategories.style.display = 'grid';
+                literatureCategories.style.display = 'none';
+            } else if (type === 'literature') {
+                blogCategories.style.display = 'none';
+                literatureCategories.style.display = 'grid';
+            } else {
+                blogCategories.style.display = 'none';
+                literatureCategories.style.display = 'none';
+            }
+        }
+
+        // 根据内容类型更新字段显示
+        function updateFieldsForContentType(type) {
+            const locationGroup = document.getElementById('location-group');
+            const literatureDateGroup = document.getElementById('literature-date-group');
+            
+            if (type === 'blog') {
+                locationGroup.style.display = 'block';
+                literatureDateGroup.style.display = 'none';
+            } else if (type === 'literature') {
+                locationGroup.style.display = 'none';
+                literatureDateGroup.style.display = 'block';
+            }
+        }
+
+        // 清除分类选择
+        function clearCategorySelection() {
+            document.querySelectorAll('.category-blog, .category-literature').forEach(opt => 
+                opt.classList.remove('selected')
+            );
+            selectedCategory = '';
+            document.getElementById('selectedCategory').value = '';
+        }
+
+        // 切换标签页
+        function switchTab(tabName) {
+            // 清除所有活动状态
+            document.querySelectorAll('.admin-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // 激活选中的标签页
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // 预览内容
+        function previewContent() {
+            const title = document.getElementById('contentTitle').value.trim();
+            const content = document.getElementById('contentText').value.trim();
+            const date = document.getElementById('contentDate').value;
+            
+            if (!title || !content || !selectedCategory || !date || !selectedContentType) {
+                showAlert('danger', '请填写完整的内容信息后再预览', 'create-alert');
+                return;
+            }
+            
+            let previewHTML = '';
+            
+            if (selectedContentType === 'blog') {
+                const location = document.getElementById('contentLocation').value.trim();
+                // 格式化日期
+                const formattedDate = new Date(date).toLocaleDateString('zh-CN', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                previewHTML = `
+                    <h1>${title}</h1>
+                    <div class="meta" style="color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                        <span>📅 ${formattedDate}</span> | 
+                        <span>📁 分组：${selectedCategory}</span>
+                    </div>
+                    <div class="content" style="line-height: 1.8; color: #444; font-size: 16px; white-space: pre-line;">
+                        ${content}
+                    </div>
+                    ${location ? `<p class="blog-location" style="margin-top: 20px; color: #666;">📍 ${location}</p>` : ''}
+                `;
+            } else if (selectedContentType === 'literature') {
+                const literatureDate = document.getElementById('literatureDate').value.trim();
+                
+                previewHTML = `
+                    <div class="blog-post-in" style="padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+                        <button class="back-button" style="margin-bottom: 15px; padding: 8px 15px; background: #8db4e2; color: white; border: none; border-radius: 5px;">返回上一页</button>
+                        <h3 class="blog-post-title-in" style="color: #333; margin-bottom: 10px;">${title}</h3>
+                        <p class="blog-post-meta-in" style="color: #666; font-size: 14px; margin-bottom: 20px;">
+                            ${literatureDate || '发表日期'} 分组：<a href="#" style="color: #8db4e2; text-decoration: none;">${selectedCategory}</a>
+                        </p>
+                        <p class="blog-post-content-in" style="line-height: 1.8; color: #444;">
+                            ${content.replace(/\n/g, '<br>')}
+                        </p>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('previewContent').innerHTML = previewHTML;
+            document.getElementById('previewSection').style.display = 'block';
+            
+            // 滚动到预览区域
+            document.getElementById('previewSection').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // 创建内容表单提交
+        document.getElementById('createContentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.btn-success');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="spinner" style="display: inline-block; width: 16px; height: 16px; margin-right: 5px;"></div>发布中...';
+            
+            clearAlert('create-alert');
+            
+            try {
+                const title = document.getElementById('contentTitle').value.trim();
+                const content = document.getElementById('contentText').value.trim();
+                const date = document.getElementById('contentDate').value;
+                
+                if (!title || !content || !selectedCategory || !date || !selectedContentType) {
+                    showAlert('danger', '请填写完整的内容信息', 'create-alert');
+                    return;
+                }
+                
+                // 生成内容ID（简单的时间戳）
+                const contentId = Date.now().toString();
+                let htmlContent = '';
+                let apiEndpoint = '';
+                let requestData = {};
+                
+                if (selectedContentType === 'blog') {
+                    const location = document.getElementById('contentLocation').value.trim();
+                    const formattedDate = new Date(date).toLocaleDateString('zh-CN');
+                    htmlContent = generateBlogHTML(title, content, formattedDate, selectedCategory, location);
+                    apiEndpoint = '/admin/create-blog';
+                    requestData = {
+                        title: title,
+                        content: htmlContent,
+                        category: selectedCategory,
+                        date: date,
+                        location: location,
+                        contentId: contentId
+                    };
+                } else if (selectedContentType === 'literature') {
+                    const literatureDate = document.getElementById('literatureDate').value.trim();
+                    htmlContent = generateLiteratureHTML(title, content, literatureDate, selectedCategory);
+                    apiEndpoint = '/admin/create-literature';
+                    requestData = {
+                        title: title,
+                        content: htmlContent,
+                        category: selectedCategory,
+                        date: date,
+                        literatureDate: literatureDate,
+                        contentId: contentId
+                    };
+                }
+                
+                // 调用创建API
+                const result = await auth.authenticatedRequest(apiEndpoint, {
+                    method: 'POST',
+                    body: JSON.stringify(requestData)
+                });
+                
+                if (result.data && result.data.success) {
+                    showAlert('success', `${selectedContentType === 'blog' ? '博客' : '文学作品'}创建成功！`, 'create-alert');
+                    // 清空表单
+                    this.reset();
+                    selectedCategory = '';
+                    selectedContentType = '';
+                    document.querySelectorAll('.category-option').forEach(opt => 
+                        opt.classList.remove('selected')
+                    );
+                    document.getElementById('previewSection').style.display = 'none';
+                    showCategoriesForType('');
+                    updateFieldsForContentType('');
+                    initializeDateInput();
+                    
+                    // 刷新内容列表
+                    refreshContentList();
+                } else {
+                    showAlert('danger', '创建失败: ' + (result.data?.error || '未知错误'), 'create-alert');
+                }
+                
+            } catch (error) {
+                console.error('创建内容失败:', error);
+                // 如果是API未实现的错误，显示友好提示
+                if (error.message.includes('404') || error.message.includes('Not Found')) {
+                    const apiName = selectedContentType === 'blog' ? 
+                        'POST /api/admin/create-blog' : 
+                        'POST /api/admin/create-literature';
+                    showAlert('info', ` API开发中：${apiName} 接口尚未实现，请联系后端工程师。`, 'create-alert');
+                } else {
+                    showAlert('danger', '创建失败: ' + error.message, 'create-alert');
+                }
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+
+        // 生成博客HTML模板
+        function generateBlogHTML(title, content, date, category, location) {
+            return `<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${title} - Lilia's BLOG</title>
+    <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
+    <meta name="description" content="Lilia的博客文章">
+    <meta name="author" content="Lilia">
+    <link href="/src/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/css/main_style.css" rel="stylesheet">
+    <style>
+      .blog-detail {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 30px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      .blog-detail h1 {
+        color: #333;
+        margin-bottom: 10px;
+      }
+      .blog-detail .meta {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+      .blog-detail .content {
+        line-height: 1.8;
+        color: #444;
+        font-size: 16px;
+        white-space: pre-line;
+      }
+      .back-btn {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 8px 16px;
+        background: #8db4e2;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+      .back-btn:hover {
+        background: #7aa3d1;
+      }
+      .comments-section {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 2px solid #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blog-detail">
+      <a href="/src/cn/real/ind" class="back-btn">← 返回列表</a>
+      
+      <h1>${title}</h1>
+      <div class="meta">
+        <span>📅 ${date}</span> | 
+        <span>📁 分组：${category}</span>
+      </div>
+      
+      <div class="content">
+        ${content}
+      </div>
+      
+      ${location ? `<p class="blog-location" style="margin-top: 20px; color: #666;">📍 ${location}</p>` : ''}
+      
+      <div class="comments-section">
+        <h3>评论区</h3>
+        <script src="https://giscus.app/client.js"
+          data-repo="CeciliaKN/CeciliaKN.github.io"
+          data-repo-id="R_kgDOMGspsQ"
+          data-category="Announcements"
+          data-category-id="DIC_kwDOMGspsc4C0uM_"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="noborder_light"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
+    </div>
+    
+    <script src="/src/js/jquery.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/scripts.js"></script>
+  </body>
+</html>`;
+        }
+
+        // 生成文学作品HTML模板
+        function generateLiteratureHTML(title, content, literatureDate, category) {
+            return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Literature丨La Grand Bibliothèque</title>
+    <link rel="icon" href="/src/indexbcg.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/src/indexbcg.png" type="image/x-icon">
+    <meta name="description" content="Personal Blog Web by Lilia">
+    <meta name="author" content="Lilia">
+    <meta name="keywords" content="Four Seasons">
+    <link href="/src/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/src/css/main_style.css" rel="stylesheet">
+  </head>
+  <body data-inside-bg>
+    <!-- Header组件容器 -->
+    <div id="header-container"></div>
+    <main class="container-fluid">
+    
+<div class="blog-post-in">
+  <button class="back-button" onclick="window.location.href = '/src/cn/literature/ind' ">返回上一页</button>
+  <h3 class="blog-post-title-in">${title}</h3>
+  <p class="blog-post-meta-in">${literatureDate || '发表日期'} 分组：<a href="#">${category}</a></p>
+  <p class="blog-post-content-in">${content.replace(/\n/g, '<br>')}</p>
+</div>
+<hr/>
+</div>
+<hr/>
+
+<!-- Giscus评论区 -->
+<div class="comments-section">
+  <h3>评论区</h3>
+  <script src="https://giscus.app/client.js"
+          data-repo="CeciliaKN/CeciliaKN.github.io"
+          data-repo-id="R_kgDOMGspsQ"
+          data-category="Announcements"
+          data-category-id="DIC_kwDOMGspsc4C0uM_"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="dark"
+          data-lang="zh-CN"
+          crossorigin="anonymous"
+          async>
+  </script>
+</div>
+
+    <div class="col-sm-3 col-sm-offset-1">
+
+<div class="sidebar-module sidebar-module-inset">
+  <div class="avatar">
+    <img class="img-circle img-rounded img-thumbnail avatar" src="static/img/3.jpg">
+    <div>
+      <h4>花雅宁</h4>
+      <a>Lilia at GitHub</a>
+    </div>
+  </div>
+  <p>女。歌者、舞者、乐手，文学少女，贩卖原创力。</p>
+</div>
+    </main>
+    <footer><a onclick="window.open('https://hanaajanen.lofter.com/')">关注我们</a></footer>
+  </body>
+    <script src="/src/js/jquery.min.js"></script>
+    <script src="/src/js/bootstrap.min.js"></script>
+    <script src="/src/js/scripts.js"></script>
+    <script src="/src/js/header-component.js"></script>
+    <script src="/src/js/blog-auth-sdk.js"></script>
+    <script src="/src/js/auth-manager.js"></script>
+</html>`;
+        }
+
+        // 刷新内容列表
+        async function refreshContentList() {
+            const listContainer = document.getElementById('blogList');
+            listContainer.innerHTML = `
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>正在加载内容列表...</p>
+                </div>
+            `;
+            
+            try {
+                // 获取管理员内容列表
+                const result = await auth.authenticatedRequest('/admin/contents');
+                
+                if (result.data && result.data.success) {
+                    const contents = result.data.contents || [];
+                    
+                    if (contents.length === 0) {
+                        listContainer.innerHTML = `
+                            <div class="alert alert-info">
+                                还没有任何内容。创建您的第一篇文章吧！
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    let contentHTML = '';
+                    contents.forEach(item => {
+                        const typeIcon = item.type === 'blog' ? '📝' : '📚';
+                        const typeName = item.type === 'blog' ? '博客' : '文学作品';
+                        const formattedDate = new Date(item.date).toLocaleDateString('zh-CN');
+                        
+                        contentHTML += `
+                            <div class="blog-item">
+                                <h4>${typeIcon} ${item.title}</h4>
+                                <div class="meta">
+                                    ${formattedDate} | 类型：${typeName} | 分类：${item.category}
+                                    ${item.url ? ` | <a href="${item.url}" target="_blank" style="color: #8db4e2; text-decoration: none;">🔗 查看</a>` : ''}
+                                </div>
+                                <div class="actions">
+                                    <button class="btn btn-danger btn-sm" 
+                                            onclick="deleteContent('${item.type}', '${item.id}', '${item.title}')">
+                                        删除
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    listContainer.innerHTML = contentHTML;
+                } else {
+                    listContainer.innerHTML = `
+                        <div class="alert alert-warning">
+                            <strong>获取内容列表失败：</strong>${result.data?.error || '未知错误'}<br>
+                            <button class="btn btn-primary btn-sm mt-2" onclick="refreshContentList()">🔄 重试</button>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                console.error('获取内容列表失败:', error);
+                // 如果是API未实现的错误，显示友好提示
+                if (error.message.includes('404') || error.message.includes('Not Found')) {
+                    listContainer.innerHTML = `
+                        <div class="alert alert-info">
+                            <h5> API开发中</h5>
+                            <p><strong>GET /api/admin/contents</strong> 接口尚未实现。</p>
+                            <p>请联系后端工程师实现此接口以获取内容列表。</p>
+                            <hr>
+                            <p><small>预期返回格式：</small></p>
+                            <pre style="font-size: 12px; background: #f8f9fa; padding: 10px; border-radius: 4px;">{
+  "success": true,
+  "contents": [
+    {
+      "id": "123",
+      "title": "文章标题",
+      "type": "blog|literature", 
+      "category": "分类名称",
+      "date": "2026-03-04",
+      "url": "/blog/slug"
+    }
+  ]
+}</pre>
+                        </div>
+                    `;
+                } else {
+                    listContainer.innerHTML = `
+                        <div class="alert alert-danger">
+                            <strong>网络错误：</strong>${error.message}<br>
+                            <button class="btn btn-primary btn-sm mt-2" onclick="refreshContentList()">🔄 重试</button>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // 删除内容
+        async function deleteContent(contentType, contentId, contentTitle) {
+            if (!confirm(`确定要删除「${contentTitle}」吗？\n\n类型：${contentType === 'blog' ? '博客文章' : '文学作品'}\n此操作不可恢复！`)) {
+                return;
+            }
+            
+            try {
+                const endpoint = contentType === 'blog' ? '/admin/delete-blog' : '/admin/delete-literature';
+                const result = await auth.authenticatedRequest(endpoint, {
+                    method: 'POST',
+                    body: JSON.stringify({ contentId: contentId })
+                });
+                
+                if (result.data && result.data.success) {
+                    showAlert('success', `${contentType === 'blog' ? '博客' : '文学作品'}删除成功！`, 'manage-alert');
+                    // 刷新列表
+                    refreshContentList();
+                } else {
+                    showAlert('danger', '删除失败: ' + (result.data?.error || '未知错误'), 'manage-alert');
+                }
+                
+            } catch (error) {
+                console.error('删除内容失败:', error);
+                // 如果是API未实现的错误，显示友好提示  
+                if (error.message.includes('404') || error.message.includes('Not Found')) {
+                    const apiName = contentType === 'blog' ? 
+                        'POST /api/admin/delete-blog' : 
+                        'POST /api/admin/delete-literature';
+                    showAlert('info', ` API开发中：${apiName} 接口尚未实现，请联系后端工程师。`, 'manage-alert');
+                } else {
+                    showAlert('danger', '删除失败: ' + error.message, 'manage-alert');
+                }
+            }
+        }
+
+        // 显示提示信息
+        function showAlert(type, message, alertId) {
+            const alert = document.getElementById(alertId);
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            
+            // 3秒后自动隐藏
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 5000);
+        }
+
+        // 清除提示信息
+        function clearAlert(alertId) {
+            const alert = document.getElementById(alertId);
+            alert.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
