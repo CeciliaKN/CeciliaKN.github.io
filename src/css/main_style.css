@@ -46,8 +46,6 @@ header {
   position: sticky;
   top: 0;
   z-index: 100;
-  flex-wrap: nowrap;
-  min-width: 0;
 }
 
 /* Literature 简化 Header */
@@ -66,23 +64,18 @@ header.simple-header a {
 }
 
 .header-center {
-  flex: 1;
+  flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  min-width: 0;
-  flex-wrap: nowrap;
 }
 
 .header-right {
-  flex: 0 0 auto;
+  flex: 1;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
   gap: 10px;
-  flex-wrap: nowrap;
-  min-width: 0;
 }
 
 /* Language Switcher */
@@ -122,9 +115,7 @@ header.simple-header a {
   background-color: rgba(255, 255, 255, 0.15);
   color: white;
   font-size: 14px;
-  width: 250px;
-  max-width: 250px;
-  flex-shrink: 0;
+  width: 300px;
   transition: all 0.3s ease;
 }
 

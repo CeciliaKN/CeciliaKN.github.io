@@ -103,11 +103,6 @@ class HeaderComponent {
                     gap: 8px;
                 }
                 
-                .header-btn {
-                    white-space: nowrap !important;
-                    min-width: fit-content !important;
-                }
-                
                 .header-btn:not(.auth-btn) {
                     margin-right: 8px;
                 }
