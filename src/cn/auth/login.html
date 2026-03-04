@@ -222,7 +222,14 @@
             document.querySelectorAll('.auth-tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            event.target.classList.add('active');
+            
+            // 添加active类到当前标签
+            const tabs = document.querySelectorAll('.auth-tab');
+            if (tabName === 'login') {
+                tabs[0].classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+            }
 
             // 显示对应表单
             document.querySelectorAll('.auth-form').forEach(form => {
@@ -321,10 +328,22 @@
                 const result = await auth.register(username, email, password);
                 
                 if (result.success) {
-                    showAlert('success', '注册成功！正在跳转...', 'register-alert');
-                    setTimeout(() => {
-                        window.location.href = '/src/cn/auth/profile.html';
-                    }, 1500);
+                    if (result.needsApproval) {
+                        // 需要审核，显示提示信息
+                        showAlert('success', result.message || '注册成功，请等待管理员审核后重新登录', 'register-alert');
+                        // 清空表单
+                        document.getElementById('registerForm').reset();
+                        // 切换到登录标签
+                        setTimeout(() => {
+                            switchTab('login');
+                        }, 2000);
+                    } else {
+                        // 直接激活，跳转到profile
+                        showAlert('success', '注册成功！正在跳转...', 'register-alert');
+                        setTimeout(() => {
+                            window.location.href = '/src/cn/auth/profile.html';
+                        }, 1500);
+                    }
                 } else {
                     showAlert('danger', result.error || '注册失败', 'register-alert');
                 }

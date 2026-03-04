@@ -41,9 +41,16 @@ class BlogBackendAuth {
         });
 
         if (data.success) {
-            this.setToken(data.token);
-            this.setUser(data.user);
-            return { success: true, user: data.user, message: data.message };
+            // 检查是否需要审核
+            if (data.needsApproval) {
+                // 注册成功但需要审核，不保存token
+                return { success: true, user: data.user, message: data.message, needsApproval: true };
+            } else {
+                // 注册成功且直接激活
+                this.setToken(data.token);
+                this.setUser(data.user);
+                return { success: true, user: data.user, message: data.message };
+            }
         } else {
             return { success: false, error: data.error };
         }

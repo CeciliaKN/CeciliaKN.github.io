@@ -738,22 +738,21 @@
                     const location = document.getElementById('contentLocation').value.trim();
                     const formattedDate = new Date(date).toLocaleDateString('zh-CN');
                     htmlContent = generateBlogHTML(title, content, formattedDate, selectedCategory, location);
-                    apiEndpoint = '/admin/create-blog';
+                    apiEndpoint = '/api/admin/create-blog';
                     requestData = {
                         title: title,
-                        content: htmlContent,
+                        content: content,  // 发送原始内容，让后端生成HTML
+                        description: title.length > 160 ? title.substring(0, 160) + '...' : title,
                         category: selectedCategory,
-                        date: date,
-                        location: location,
-                        contentId: contentId
+                        tags: []  // 可以以后扩展标签功能
                     };
                 } else if (selectedContentType === 'literature') {
                     const literatureDate = document.getElementById('literatureDate').value.trim();
                     htmlContent = generateLiteratureHTML(title, content, literatureDate, selectedCategory);
-                    apiEndpoint = '/admin/create-literature';
+                    apiEndpoint = '/api/admin/create-literature';
                     requestData = {
                         title: title,
-                        content: htmlContent,
+                        content: content,  // 发送原始内容，让后端生成HTML
                         category: selectedCategory,
                         date: date,
                         literatureDate: literatureDate,
@@ -996,7 +995,7 @@
             
             try {
                 // 获取管理员内容列表
-                const result = await auth.authenticatedRequest('/admin/contents');
+                const result = await auth.authenticatedRequest('/api/admin/contents');
                 
                 if (result.data && result.data.success) {
                     const contents = result.data.contents || [];
@@ -1087,7 +1086,7 @@
             }
             
             try {
-                const endpoint = contentType === 'blog' ? '/admin/delete-blog' : '/admin/delete-literature';
+                const endpoint = contentType === 'blog' ? '/api/admin/delete-blog' : '/api/admin/delete-literature';
                 const result = await auth.authenticatedRequest(endpoint, {
                     method: 'POST',
                     body: JSON.stringify({ contentId: contentId })
