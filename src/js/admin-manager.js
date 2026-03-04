@@ -240,10 +240,10 @@ class BlogAdminManager {
                 <span>📅 ${formattedDate}</span> | 
                 <span>📁 分组：${this.selectedCategory}</span>
             </div>
-            <div class="content" style="line-height: 1.8; color: #e0e0e0; font-size: 16px; white-space: pre-line;">
+            <div class="content" style="line-height: 1.8; color: #eeeeee; font-size: 16px; white-space: pre-line;">
                 ${content}
             </div>
-            ${location ? `<p class="blog-location" style="margin-top: 20px; color: #aaa;">📍 ${location}</p>` : ''}
+            ${location ? `<p class="blog-location" style="margin-top: 20px; color: #cccccc;">📍 ${location}</p>` : ''}
         `;
     }
 
@@ -253,10 +253,10 @@ class BlogAdminManager {
             <div class="blog-post-in" style="padding: 20px; border: 1px solid rgba(141, 180, 226, 0.3); border-radius: 8px;">
                 <button class="back-button" style="margin-bottom: 15px; padding: 8px 15px; background: #8db4e2; color: white; border: none; border-radius: 5px;">返回上一页</button>
                 <h3 class="blog-post-title-in" style="color: #ffffff; margin-bottom: 10px;">${title}</h3>
-                <p class="blog-post-meta-in" style="color: #bbb; font-size: 14px; margin-bottom: 20px;">
+                <p class="blog-post-meta-in" style="color: #eeeeee; font-size: 14px; margin-bottom: 20px;">
                     ${literatureDate || '发表日期'} 分组：<a href="#" style="color: #8db4e2; text-decoration: none;">${this.selectedCategory}</a>
                 </p>
-                <p class="blog-post-content-in" style="line-height: 1.8; color: #ddd;">
+                <p class="blog-post-content-in" style="line-height: 1.8; color: #eeeeee;">
                     ${content.replace(/\n/g, '<br>')}
                 </p>
             </div>
