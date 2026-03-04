@@ -26,11 +26,18 @@ class BlogAdminManager {
         }
 
         try {
+            // 获取完整的权限信息用于调试
+            const permResult = await this.auth.getCurrentPermissions();
+            console.log('🔍 完整权限API响应:', permResult);
+            
             // 检查admin权限
             const hasAdmin = await this.auth.hasPermission('canAdmin');
+            console.log('🔍 hasPermission("canAdmin") 结果:', hasAdmin);
+            
             if (hasAdmin) {
                 this.showAdminContent();
             } else {
+                console.log('❌ 权限检查失败，用户没有canAdmin权限');
                 this.showAccessDenied();
             }
         } catch (error) {
