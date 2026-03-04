@@ -182,5 +182,144 @@
     <script src="/src/js/header-component.js"></script>
     <script src="/src/js/blog-auth-sdk.js"></script>
     <script src="/src/js/auth-manager.js"></script>
+    <script>
+      /**
+       * 文学作品筛选和加载功能
+       */
+      let currentLiteratureCategory = 'all';
+
+      /**
+       * 从后端加载并显示已发布的文学作品
+       */
+      async function loadBackendLiterature() {
+        try {
+          const response = await fetch('https://blogbackend.nixin985.workers.dev/api/literature?limit=50');
+          const data = await response.json();
+
+          if (!data.success || !data.literature || data.literature.length === 0) {
+            return;
+          }
+
+          // 存储后端文学作品数据
+          window.backendLiterature = data.literature;
+          
+          // 执行筛选
+          filterLiteratureByCategory(currentLiteratureCategory);
+        } catch (error) {
+          console.error('加载后端文学作品失败:', error);
+        }
+      }
+
+      /**
+       * 筛选文学作品
+       */
+      function filterLiteratureByCategory(category) {
+        currentLiteratureCategory = category;
+        
+        // 获取所有文学作品（静态）
+        const staticPosts = document.querySelectorAll('.blog-post');
+        
+        staticPosts.forEach(post => {
+          const postCategory = post.getAttribute('data-category');
+          
+          if (category === 'all' || postCategory === category) {
+            post.style.display = 'block';
+          } else {
+            post.style.display = 'none';
+          }
+        });
+
+        // 动态添加后端文学作品
+        if (!window.backendLiterature) return;
+
+        const container = document.querySelector('.blog-container');
+        const backendContainer = document.getElementById('backend-literature-container');
+        
+        let html = '<div id="backend-section" style="border-top: 2px solid rgba(255,255,255,0.2); margin-top: 40px; padding-top: 20px;"><h3 style="color: #ffffff; margin-bottom: 30px;">📚 新作发布</h3>';
+        
+        let hasLiterature = false;
+        
+        window.backendLiterature.forEach(lit => {
+          // 过滤分类
+          if (category !== 'all' && lit.category !== category) {
+            return;
+          }
+          
+          hasLiterature = true;
+          const postDate = new Date(lit.createdAt).toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+          });
+
+          html += `
+            <div class="blog-post" data-category="${lit.category}">
+              <h2>
+                <a href="/literature/${lit.urlSlug}" style="color: inherit; text-decoration: none;">
+                  ${lit.title}
+                </a>
+              </h2>
+              <p class="blog-post-meta">
+                ${postDate} | 分组：
+                <a href="#" class="post-category" data-category="${lit.category}">
+                  ${lit.category}
+                </a>
+              </p>
+              <p class="blog-post-content">
+                ${lit.createdAt}
+              </p>
+            </div>
+          `;
+        });
+
+        html += '</div>';
+        
+        // 清空并重新添加后端内容
+        let existingBackend = document.getElementById('backend-section');
+        if (existingBackend) {
+          existingBackend.remove();
+        }
+        
+        if (hasLiterature) {
+          // 在导航之前插入
+          const nav = document.querySelector('nav');
+          if (nav) {
+            nav.insertAdjacentHTML('beforebegin', html);
+          } else {
+            container.insertAdjacentHTML('beforeend', html);
+          }
+        }
+      }
+
+      // 页面加载完成后初始化
+      document.addEventListener('DOMContentLoaded', function() {
+        // 加载后端文学作品
+        loadBackendLiterature();
+
+        // 为分类过滤器添加事件监听
+        document.querySelectorAll('.category-filter').forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const category = this.getAttribute('data-category');
+            filterLiteratureByCategory(category);
+            
+            // 高亮当前选中的分类
+            document.querySelectorAll('.category-filter').forEach(l => {
+              l.style.fontWeight = 'normal';
+              l.style.color = 'inherit';
+            });
+            this.style.fontWeight = 'bold';
+            this.style.color = '#8db4e2';
+          });
+        });
+
+        // 初始化样式
+        const firstFilter = document.querySelector('.category-filter');
+        if (firstFilter) {
+          firstFilter.style.fontWeight = 'bold';
+          firstFilter.style.color = '#8db4e2';
+        }
+      });
+    </script>
   </body>
 </html>
