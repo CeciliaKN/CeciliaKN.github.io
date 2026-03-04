@@ -27,7 +27,7 @@ class BlogAdminManager {
 
         try {
             // 检查admin权限
-            const hasAdmin = await this.auth.hasPermission('can_admin');
+            const hasAdmin = await this.auth.hasPermission('canAdmin');
             if (hasAdmin) {
                 this.showAdminContent();
             } else {
