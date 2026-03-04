@@ -216,18 +216,19 @@ class BlogBackendAuth {
 
     /**
      * 检查用户是否有特定权限
-     * 支持两种检查方式：
-     * 1. 通过后端权限对象: result.data.permissions[permission]
-     * 2. 通过本地用户role字段: user.role === 'admin'
-     * 3. 通过后端role字段: result.data.role
+     * 支持多种权限名称格式：canAdmin / can_admin / admin
      */
     async hasPermission(permission) {
         try {
-            // 优先检查本地存储的用户信息中的role字段
-            const user = this.getUser();
-            console.log(`[hasPermission] 检查: ${permission}, 本地用户:`, user);
+            // 标准化权限名称（支持驼峰和下划线）
+            const normalizedPerm = permission.toLowerCase()
+                .replace(/_([a-z])/g, (g) => g[1].toUpperCase()); // can_admin -> canAdmin
             
-            if (user && permission === 'canAdmin' && user.role === 'admin') {
+            const user = this.getUser();
+            console.log(`[hasPermission] 检查: ${permission} (标准化: ${normalizedPerm}), 本地用户:`, user);
+            
+            // 优先检查本地用户角色（最快）
+            if (user && user.role === 'admin') {
                 console.log(`[hasPermission] 本地检查通过: user.role = admin`);
                 return true;
             }
@@ -238,13 +239,21 @@ class BlogBackendAuth {
             console.log(`[hasPermission] API返回:`, result);
             
             if (result.data && result.data.success) {
-                // 方式1: 检查permissions对象
-                if (result.data.permissions && result.data.permissions[permission]) {
-                    console.log(`[hasPermission] API permissions检查通过:`, result.data.permissions[permission]);
-                    return true;
+                // 检查permissions对象（支持驼峰和下划线格式）
+                if (result.data.permissions) {
+                    if (result.data.permissions[normalizedPerm]) {
+                        console.log(`[hasPermission] API permissions检查通过 (${normalizedPerm}):`, result.data.permissions[normalizedPerm]);
+                        return true;
+                    }
+                    if (result.data.permissions[permission]) {
+                        console.log(`[hasPermission] API permissions检查通过 (${permission}):`, result.data.permissions[permission]);
+                        return true;
+                    }
                 }
-                // 方式2: 检查role字段（针对canAdmin权限）
-                if (permission === 'canAdmin' && result.data.role === 'admin') {
+                
+                // 如果请求的是admin权限，检查role字段
+                if ((permission === 'canAdmin' || permission === 'can_admin' || permission === 'admin') && 
+                    result.data.role === 'admin') {
                     console.log(`[hasPermission] API role检查通过: role = admin`);
                     return true;
                 }
@@ -255,11 +264,11 @@ class BlogBackendAuth {
             console.error(`[hasPermission] 异常:`, error);
             // 网络错误时，回退到检查本地用户信息
             const user = this.getUser();
-            if (user && permission === 'canAdmin' && user.role === 'admin') {
+            if (user && user.role === 'admin') {
                 console.log(`[hasPermission] 网络错误，使用本地缓存，返回true`);
                 return true;
             }
-            console.log(`[hasPermission] 网络错误，无本地缓存，返回false`);
+            console.log(`[hasPermission] 网络错误且无本地缓存，返回false`);
             return false;
         }
     }
