@@ -16,6 +16,7 @@
             max-width: 800px;
             margin: 80px auto;
             padding: 40px;
+            width: 90%;  /* 响应式宽度 */
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -177,6 +178,54 @@
         .textarea-control {
             min-height: 100px;
             resize: vertical;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .profile-container {
+                margin: 20px auto;
+                padding: 20px;
+                width: 95%;
+                border-radius: 10px;
+            }
+            
+            .info-row {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .info-label {
+                min-width: unset;
+                margin-bottom: 5px;
+                font-size: 14px;
+            }
+            
+            .info-value {
+                font-size: 14px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                margin-bottom: 10px;
+                width: 100%;
+                display: block;
+            }
+            
+            .profile-header h1 {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .profile-container {
+                padding: 15px;
+                width: 98%;
+            }
+            
+            .form-control {
+                padding: 10px;
+                font-size: 16px; /* 防止移动端缩放 */
+            }
         }
     </style>
 </head>
@@ -374,7 +423,7 @@
                     permContainer.innerHTML = '';
                     
                     // 检查是否有管理员权限
-                    const hasAdminPermission = permissions['can_admin'] || false;
+                    const hasAdminPermission = permissions['canAdmin'] || false;
                     if (hasAdminPermission) {
                         document.getElementById('admin-functions').style.display = 'block';
                     }
@@ -403,10 +452,10 @@
         // 权限名称映射
         function getPermissionName(permission) {
             const permMap = {
-                'can_edit': '编辑权限',
-                'can_comment': '评论权限',
-                'can_moderate': '管理权限',
-                'can_admin': '管理员权限'
+                'canEdit': '编辑权限', 
+                'canComment': '评论权限',
+                'canModerate': '管理权限',
+                'canAdmin': '管理员权限'
             };
             return permMap[permission] || permission;
         }
