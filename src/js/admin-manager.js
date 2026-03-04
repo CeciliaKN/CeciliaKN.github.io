@@ -21,13 +21,20 @@ class BlogAdminManager {
     // 检查管理员权限
     async checkAdminPermission() {
         if (!this.auth.isLoggedIn()) {
+            console.warn('未登录');
             this.showAccessDenied();
             return;
         }
 
         try {
+            // 调试：打印本地用户信息
+            const user = this.auth.getUser();
+            console.log('本地用户信息:', user);
+            
             // 检查admin权限
             const hasAdmin = await this.auth.hasPermission('canAdmin');
+            console.log('hasPermission("canAdmin")结果:', hasAdmin);
+            
             if (hasAdmin) {
                 this.showAdminContent();
             } else {

@@ -225,29 +225,41 @@ class BlogBackendAuth {
         try {
             // 优先检查本地存储的用户信息中的role字段
             const user = this.getUser();
+            console.log(`[hasPermission] 检查: ${permission}, 本地用户:`, user);
+            
             if (user && permission === 'canAdmin' && user.role === 'admin') {
+                console.log(`[hasPermission] 本地检查通过: user.role = admin`);
                 return true;
             }
 
             // 然后调用API检查权限
+            console.log(`[hasPermission] 调用API检查权限...`);
             const result = await this.getCurrentPermissions();
+            console.log(`[hasPermission] API返回:`, result);
+            
             if (result.data && result.data.success) {
                 // 方式1: 检查permissions对象
                 if (result.data.permissions && result.data.permissions[permission]) {
+                    console.log(`[hasPermission] API permissions检查通过:`, result.data.permissions[permission]);
                     return true;
                 }
                 // 方式2: 检查role字段（针对canAdmin权限）
                 if (permission === 'canAdmin' && result.data.role === 'admin') {
+                    console.log(`[hasPermission] API role检查通过: role = admin`);
                     return true;
                 }
             }
+            console.log(`[hasPermission] 检查失败`);
             return false;
-        } catch {
+        } catch (error) {
+            console.error(`[hasPermission] 异常:`, error);
             // 网络错误时，回退到检查本地用户信息
             const user = this.getUser();
             if (user && permission === 'canAdmin' && user.role === 'admin') {
+                console.log(`[hasPermission] 网络错误，使用本地缓存，返回true`);
                 return true;
             }
+            console.log(`[hasPermission] 网络错误，无本地缓存，返回false`);
             return false;
         }
     }
