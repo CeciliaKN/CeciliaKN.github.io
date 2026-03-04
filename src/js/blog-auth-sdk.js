@@ -216,15 +216,38 @@ class BlogBackendAuth {
 
     /**
      * 检查用户是否有特定权限
+     * 支持两种检查方式：
+     * 1. 通过后端权限对象: result.data.permissions[permission]
+     * 2. 通过本地用户role字段: user.role === 'admin'
+     * 3. 通过后端role字段: result.data.role
      */
     async hasPermission(permission) {
         try {
+            // 优先检查本地存储的用户信息中的role字段
+            const user = this.getUser();
+            if (user && permission === 'canAdmin' && user.role === 'admin') {
+                return true;
+            }
+
+            // 然后调用API检查权限
             const result = await this.getCurrentPermissions();
             if (result.data && result.data.success) {
-                return result.data.permissions[permission] || false;
+                // 方式1: 检查permissions对象
+                if (result.data.permissions && result.data.permissions[permission]) {
+                    return true;
+                }
+                // 方式2: 检查role字段（针对canAdmin权限）
+                if (permission === 'canAdmin' && result.data.role === 'admin') {
+                    return true;
+                }
             }
             return false;
         } catch {
+            // 网络错误时，回退到检查本地用户信息
+            const user = this.getUser();
+            if (user && permission === 'canAdmin' && user.role === 'admin') {
+                return true;
+            }
             return false;
         }
     }
