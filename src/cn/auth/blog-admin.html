@@ -910,7 +910,7 @@
         // 生成文学作品HTML模板
         function generateLiteratureHTML(title, content, literatureDate, category) {
             return `<!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -927,59 +927,51 @@
   <body data-inside-bg>
     <!-- Header组件容器 -->
     <div id="header-container"></div>
-    <main class="container-fluid">
     
-<div class="blog-post-in">
-  <button class="back-button" onclick="window.location.href = '/src/cn/literature/ind' ">返回上一页</button>
-  <h3 class="blog-post-title-in">${title}</h3>
-  <p class="blog-post-meta-in">${literatureDate || '发表日期'} 分组：<a href="#">${category}</a></p>
-  <p class="blog-post-content-in">${content.replace(/\n/g, '<br>')}</p>
-</div>
-<hr/>
-</div>
-<hr/>
-
-<!-- Giscus评论区 -->
-<div class="comments-section">
-  <h3>评论区</h3>
-  <script src="https://giscus.app/client.js"
-          data-repo="CeciliaKN/CeciliaKN.github.io"
-          data-repo-id="R_kgDOMGspsQ"
-          data-category="Announcements"
-          data-category-id="DIC_kwDOMGspsc4C0uM_"
-          data-mapping="pathname"
-          data-strict="0"
-          data-reactions-enabled="1"
-          data-emit-metadata="0"
-          data-input-position="bottom"
-          data-theme="dark"
-          data-lang="zh-CN"
-          crossorigin="anonymous"
-          async>
-  </script>
-</div>
-
-    <div class="col-sm-3 col-sm-offset-1">
-
-<div class="sidebar-module sidebar-module-inset">
-  <div class="avatar">
-    <img class="img-circle img-rounded img-thumbnail avatar" src="static/img/3.jpg">
-    <div>
-      <h4>花雅宁</h4>
-      <a>Lilia at GitHub</a>
+    <div class="literature-detail">
+      <a href="/src/cn/literature/ind" class="back-btn">← 返回文选目录</a>
+      
+      <h1>${title}</h1>
+      <div class="meta">
+        <span>📅 ${literatureDate || '创作时间'}</span> | 
+        <span>📁 分组：${category}</span>
+      </div>
+      
+      <div class="content">
+        ${content}
+      </div>
+      
+      <div class="comments-section">
+        <h3>评论区</h3>
+        <script src="https://giscus.app/client.js"
+                data-repo="CeciliaKN/CeciliaKN.github.io"
+                data-repo-id="R_kgDOMGspsQ"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOMGspsc4C0uM_"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-theme="noborder_light"
+                data-lang="zh-CN"
+                crossorigin="anonymous"
+                async>
+        </script>
+      </div>
     </div>
-  </div>
-  <p>女。歌者、舞者、乐手，文学少女，贩卖原创力。</p>
-</div>
-    </main>
-    <footer><a onclick="window.open('https://hanaajanen.lofter.com/')">关注我们</a></footer>
-  </body>
+    
     <script src="/src/js/jquery.min.js"></script>
     <script src="/src/js/bootstrap.min.js"></script>
     <script src="/src/js/scripts.js"></script>
     <script src="/src/js/header-component.js"></script>
-    <script src="/src/js/blog-auth-sdk.js"></script>
-    <script src="/src/js/auth-manager.js"></script>
+    <script>
+      // 初始化header组件
+      document.addEventListener('DOMContentLoaded', function() {
+          initHeader();
+      });
+    </script>
+  </body>
 </html>`;
         }
 

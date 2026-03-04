@@ -73,8 +73,28 @@ class HeaderComponent {
                 }
                 
                 #auth-buttons {
-                    display: inline-block;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
                     margin-left: 10px;
+                }
+                
+                .admin-btn {
+                    padding: 8px 16px !important;
+                    background-color: rgba(255, 255, 255, 0.15) !important;
+                    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+                    color: white !important;
+                    cursor: pointer !important;
+                    border-radius: 6px !important;
+                    font-size: 14px !important;
+                    transition: all 0.3s ease !important;
+                    margin-left: 0 !important;
+                }
+                
+                .admin-btn:hover {
+                    background-color: rgba(255, 255, 255, 0.3) !important;
+                    transform: translateY(-2px) !important;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
                 }
                 
                 .header-right {
@@ -318,7 +338,12 @@ class HeaderComponent {
                 const userResult = await auth.getCurrentUser();
                 if (userResult.success) {
                     const user = userResult.user;
+                    const isAdmin = user.role === 'admin';
+                    
                     authButtonsContainer.innerHTML = `
+                        ${isAdmin ? `<button class="header-btn admin-btn" onclick="window.location.href='/src/cn/auth/blog-admin.html'">
+                            管理
+                        </button>` : ''}
                         <button class="header-btn auth-btn" onclick="window.location.href='/src/cn/auth/profile.html'">
                             ${user.username}
                         </button>
