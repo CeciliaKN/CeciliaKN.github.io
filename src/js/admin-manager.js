@@ -235,28 +235,28 @@ class BlogAdminManager {
         });
         
         return `
-            <h1>${title}</h1>
-            <div class="meta" style="color: #666; font-size: 14px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+            <h1 style="color: #ffffff;">${title}</h1>
+            <div class="meta" style="color: #ccc; font-size: 14px; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.2);">
                 <span>📅 ${formattedDate}</span> | 
                 <span>📁 分组：${this.selectedCategory}</span>
             </div>
-            <div class="content" style="line-height: 1.8; color: #444; font-size: 16px; white-space: pre-line;">
+            <div class="content" style="line-height: 1.8; color: #e0e0e0; font-size: 16px; white-space: pre-line;">
                 ${content}
             </div>
-            ${location ? `<p class="blog-location" style="margin-top: 20px; color: #666;">📍 ${location}</p>` : ''}
+            ${location ? `<p class="blog-location" style="margin-top: 20px; color: #aaa;">📍 ${location}</p>` : ''}
         `;
     }
 
     // 生成文学作品预览HTML
     generateLiteraturePreview(title, content, literatureDate) {
         return `
-            <div class="blog-post-in" style="padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+            <div class="blog-post-in" style="padding: 20px; border: 1px solid rgba(141, 180, 226, 0.3); border-radius: 8px;">
                 <button class="back-button" style="margin-bottom: 15px; padding: 8px 15px; background: #8db4e2; color: white; border: none; border-radius: 5px;">返回上一页</button>
-                <h3 class="blog-post-title-in" style="color: #333; margin-bottom: 10px;">${title}</h3>
-                <p class="blog-post-meta-in" style="color: #666; font-size: 14px; margin-bottom: 20px;">
+                <h3 class="blog-post-title-in" style="color: #ffffff; margin-bottom: 10px;">${title}</h3>
+                <p class="blog-post-meta-in" style="color: #bbb; font-size: 14px; margin-bottom: 20px;">
                     ${literatureDate || '发表日期'} 分组：<a href="#" style="color: #8db4e2; text-decoration: none;">${this.selectedCategory}</a>
                 </p>
-                <p class="blog-post-content-in" style="line-height: 1.8; color: #444;">
+                <p class="blog-post-content-in" style="line-height: 1.8; color: #ddd;">
                     ${content.replace(/\n/g, '<br>')}
                 </p>
             </div>
@@ -304,7 +304,7 @@ class BlogAdminManager {
         
         if (this.selectedContentType === 'blog') {
             const location = document.getElementById('contentLocation')?.value.trim() || '';
-            apiEndpoint = '/api/admin/create-blog';
+            apiEndpoint = '/admin/create-blog';
             requestData = {
                 title: title,
                 content: content, 
@@ -314,7 +314,7 @@ class BlogAdminManager {
             };
         } else if (this.selectedContentType === 'literature') {
             const literatureDate = document.getElementById('literatureDate')?.value.trim() || '';
-            apiEndpoint = '/api/admin/create-literature';
+            apiEndpoint = '/admin/create-literature';
             requestData = {
                 title: title,
                 content: content, 
@@ -387,7 +387,7 @@ class BlogAdminManager {
         `;
         
         try {
-            const result = await this.auth.authenticatedRequest('/api/admin/contents');
+            const result = await this.auth.authenticatedRequest('/admin/contents');
             
             if (result.data && result.data.success) {
                 this.renderContentList(result.data.contents || []);
@@ -499,7 +499,7 @@ class BlogAdminManager {
         }
         
         try {
-            const endpoint = contentType === 'blog' ? '/api/admin/delete-blog' : '/api/admin/delete-literature';
+            const endpoint = contentType === 'blog' ? '/admin/delete-blog' : '/admin/delete-literature';
             const result = await this.auth.authenticatedRequest(endpoint, {
                 method: 'POST',
                 body: JSON.stringify({ contentId: contentId })
