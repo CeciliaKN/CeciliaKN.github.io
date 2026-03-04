@@ -156,6 +156,8 @@ header.simple-header a {
   border-radius: 6px;
   font-size: 14px;
   transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: fit-content;
 }
 
 .header-btn:hover {
